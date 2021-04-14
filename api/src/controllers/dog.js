@@ -4,7 +4,6 @@ const {v4: uuidv4} = require('uuid');
 const {Dog} = require('../db.js');
 
 function getDogs(req, res, next) {
-    console.log(req.body)
     const dogsApi = axios.get('https://api.thedogapi.com/v1/breeds', {responseType: 'json'});
     const dogsDB = Dog.findAll();
     Promise.all([dogsApi, dogsDB])
