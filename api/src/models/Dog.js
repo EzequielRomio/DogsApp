@@ -1,28 +1,34 @@
 // const { DataTypes } = require('sequelize');
-const S = require('sequelize');
+const {DataTypes} = require('sequelize');
 // Exportamos una funcion que define el modelo
 // Luego le injectamos la conexion a sequelize.
 
+// diferenciar ids: 
+
 module.exports = (sequelize) => {
   sequelize.define('dog', {
+    id: {
+      type: DataTypes.UUID,
+      primaryKey: true,
+    },
     name: {
-      type: S.STRING,
+      type: DataTypes.STRING,
       allowNull: false,
     },
     height: {
-      type: S.JSON, // example "height":{"imperial":"9 - 11.5","metric":"23 - 29"}
+      type: DataTypes.JSON, // example "height":{"imperial":"9 - 11.5","metric":"23 - 29"}
       allowNull: false,
     },
     weight : {
-      type: S.JSON, // example "weight":{"imperial":"6 - 13","metric":"3 - 6"}
+      type: DataTypes.JSON, // example "weight":{"imperial":"6 - 13","metric":"3 - 6"}
       allowNull: false,
     },
     life_span: {
-      type: S.STRING,
+      type: DataTypes.STRING,
       allowNull: true,
     }, 
     external_api_id: {
-      type: S.INTEGER,
+      type: DataTypes.INTEGER,
       allowNull: true,
     }
   });

@@ -1,9 +1,9 @@
 const { Router } = require('express');
 const axios = require('axios');
 
-const temperament = require('./temperaments.js');
-const dog = require('./dogs.js')
-const {Dog, Temperament} = require('../db.js')
+const temperamentRoutes = require('./temperament.js');
+const dogRoutes = require('./dog.js');
+const {Dog, Temperament} = require('../db.js');
 // Importar todos los routers;
 // Ejemplo: const authRouter = require('./auth.js');
 
@@ -12,9 +12,9 @@ const router = Router();
 // Configurar los routers
 // Ejemplo: router.use('/auth', authRouter);
 
-router.use('/temperament', temperament);
-router.use('/dogs', dog);
-router.use('/dog', dog);
+router.use('/temperament', temperamentRoutes);
+router.use('/dogs', dogRoutes);
+router.use('/dog', dogRoutes);
 
 const fillDataBase = () => {
     // import axios from axios, Dog from db.js
@@ -35,6 +35,6 @@ const fillDataBase = () => {
         });   
 
 }
-fillDataBase()
+//fillDataBase()
 
 module.exports = router;
