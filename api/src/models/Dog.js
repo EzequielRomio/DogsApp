@@ -13,6 +13,7 @@ module.exports = (sequelize) => {
     name: {
       type: DataTypes.STRING,
       allowNull: false,
+      unique: true
     },
     height: {
       type: DataTypes.JSON, // example "height":{"imperial":"9 - 11.5","metric":"23 - 29"}
@@ -28,3 +29,4 @@ module.exports = (sequelize) => {
     }
   });
 };
+

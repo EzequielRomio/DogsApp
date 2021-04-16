@@ -1,7 +1,7 @@
 const axios = require('axios');
 const {v4: uuidv4} = require('uuid');
 
-const {Dog} = require('../db.js');
+const {Dog, Temperament} = require('../db.js');
 
 function getDogs(req, res, next) {
     const name = req.query.name
@@ -33,26 +33,6 @@ function getDogs(req, res, next) {
 }
 
 
-const promisedSearch = function(name, list) {
-    return new Promise(function(resolve, reject) {
-        searchName(name, list, function(err, data) {
-            if (err) {return reject(Error('Error ocurred'))};
-            resolve(data);
-        });
-    });
-};
-
-function searchName(name, dogs) {
-    const result = dogs.filter(dog => {
-        dog.name === name;
-    });
-    while (result.length > 8) {
-        result.pop()
-    };
-    console.log(result)
-    return result;
-}
-
 function getDog(req, res, next) {
     let idNum = req.params.id;
     if (idNum.includes('-') && !parseInt(idNum)) {
@@ -83,14 +63,29 @@ function getDog(req, res, next) {
 
 }
 
-function addDog(req, res, next) {
-    // FALTAR VALIDAR BODY
-    const id = uuidv4();
-    const newDog = {...req.body, id}
-    return Dog.create(newDog)
-        .then(result => res.status(200).json({result}))
-        .catch(err => next(err));
+
+async function addDog(req, res, next) {
+    try{
+        if (req.body.name && req.body.height && req.body.weight && req.body.temperament) {
+            const id = uuidv4();
+            const newDog = {...req.body, id}
+            const postedDog = await Dog.create(newDog);
+            const temperaments = newDog.temperament.replace(/,/g, '').split(' ');
+            for (const temperament of temperaments) {
+                try {
+                    const postedTemperament = await Temperament.create({name: temperament});  
+                    await postedDog.addTemperament(postedTemperament);
+                } catch {}
+            }
+            return res.status(200).json(postedDog)
+        } else {
+            next({status: 400, message: 'Important fields missing'})
+        }
+    } catch {
+        next({status: 400, message: `This dog already exist`})
+    }
 }
+
 
 module.exports = {
     getDogs,
