@@ -20,12 +20,4 @@ https://api.thedogapi.com/v1/breeds/search?q={raza_perro}
     "image":{"id":"BJa4kxc4X","width":1600,"height":1199,"url":"https://cdn2.thedogapi.com/images/BJa4kxc4X.jpg"}
 }
 
-# check if temperaments needs to be a dog´s column
-
-# check how to access to dog_temperament
-
-# Promise to solve the req.param.name
-
-# addDog, validate body
-
 # 

@@ -3,10 +3,43 @@ const {v4: uuidv4} = require('uuid');
 
 const {Temperament, Dog} = require('../db.js');
 
+function setDogData(dog) {
+    return {
+        name: dog.name,
+        id: dog.id
+    }
+}
+
+function setTemperamentData(temp) {
+    return {
+        name: temp.name,
+        id: temp.id,
+        dogs: temp.dogs.map(dog => setDogData(dog))
+    }
+}
+
 function getTemperaments(req, res, next) {
     return Temperament.findAll({include: [Dog]})
-        .then(temperaments => res.json({temperaments}))
+        .then(temperaments => {
+            const result = temperaments.map(temp => setTemperamentData(temp));
+            res.json(result)
+        })
+
         .catch(err => next(err));
+}
+
+function getTemperamentByName(req, res, next) {
+    const name = req.params.name;
+    Temperament.findOne({where: {name}, include: [Dog]})
+    .then(temperament => {
+        if (temperament) {
+            const data = setTemperamentData(temperament);
+            return res.status(200).json(data)
+        } else {
+            next({status: 404, message: 'Temperament not found'});
+        }
+    })
+    .catch(err => next(err))
 }
 
 function addTemperament(req, res, next) {
@@ -48,5 +81,6 @@ fillDB() //Initialize DB
 
 module.exports = {
     getTemperaments,
-    addTemperament
+    addTemperament,
+    getTemperamentByName
 }

@@ -3,16 +3,38 @@ const {v4: uuidv4} = require('uuid');
 
 const {Dog, Temperament} = require('../db.js');
 
+function setTemperamentData(temp) {
+    return {
+        name: temp.name,
+        id: temp.id
+    }
+}
+
+function setDogData(dog) {
+    // gets shure dog.temperaments exist, else replace with temperament string
+    const temperament = dog.temperaments ? dog.temperaments.map(temp => setTemperamentData(temp)) : dog.temperament;
+    return {
+        name: dog.name,
+        weight: dog.weight,
+        height: dog.height,
+        id: dog.id,
+        image: dog.image,
+        temperaments: temperament,
+        life_span: dog.life_span
+    };
+}
+
 function getDogs(req, res, next) {
     const name = req.query.name
-    console.log(name)
     if (!name) {
         const dogsApi = axios.get('https://api.thedogapi.com/v1/breeds', {responseType: 'json'});
         const dogsDB = Dog.findAll({include: [Temperament]});
         Promise.all([dogsApi, dogsDB])
             .then(dogs => {
                 let [dogsApiResult, dogsDBResult] = dogs;
-                const data = dogsDBResult.concat(dogsApiResult.data);
+                let data = dogsDBResult.concat(dogsApiResult.data);
+                data = data.splice(0, 8)
+                data = data.map(dog => setDogData(dog));
                 return res.status(200).json(data);    
             })
             .catch(err => next(err));
@@ -23,9 +45,14 @@ function getDogs(req, res, next) {
         Promise.all([dogsApi, dogsDB])
             .then(dogs => {
                 let [dogsApiResult, dogsDBResult] = dogs;
-                const data = dogsDBResult.concat(dogsApiResult.data);   
-                const first8 = data.splice(0, 8);
-                return res.status(200).json(first8);    
+                let data = dogsDBResult.concat(dogsApiResult.data);
+                if (data.length > 0) {   
+                    data = data.splice(0, 8);
+                    data = data.map(dog => setDogData(dog));
+                    return res.status(200).json(data);
+                } else {
+                    next({status: 404, message: 'Name not found'}); 
+                }   
             })
             .catch(err => next(err));        
     }
@@ -37,9 +64,9 @@ function getDog(req, res, next) {
     let idNum = req.params.id;
     if (idNum.includes('a') || idNum.includes('b') || idNum.includes('c') || idNum.includes('d') || idNum.includes('e')) {
         Dog.findOne({where: {id: idNum}, include: [Temperament]}).then(dog => {
-            console.log(dog)
             if (dog) {
-                return res.json(dog)
+                const data = setDogData(dog)
+                return res.json(data)
             } else {
                 next({status: 404, message: "Id not found"});
             }
@@ -54,7 +81,8 @@ function getDog(req, res, next) {
         .then(apiRes => {
             const dog = apiRes.data.find(apiDog => apiDog["id"] === idNum);
             if (dog) {
-                return res.json(dog)
+                const data = setDogData(dog)
+                return res.json(data)
             } else {
                 next({status: 404, message: "Id not found"})
             }
