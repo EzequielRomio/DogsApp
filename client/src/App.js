@@ -4,6 +4,7 @@ import './App.css';
 import {MainPageContainer} from './components/MainPageContainer.js'; 
 import {NavBar} from './components/NavBar.js';
 import {Title} from './components/Title.js';
+import {CardsContainer} from './components/CardsContainer.js';
 
 function App() {
   return (
@@ -12,10 +13,10 @@ function App() {
         exact path='/'
         component={MainPageContainer}
       />
-      
+
       <Route 
-      path='/dogs'
-      render={() => <Title isMain={false}/>} 
+        path='/dogs'
+        render={() => <Title isMain={false}/>} 
       />
 
       <Route 
@@ -23,6 +24,11 @@ function App() {
         component={NavBar}
       />
       
+      <Route 
+        exact path='/dogs'
+        component={CardsContainer}
+      />
+
     </div>
   );
 }

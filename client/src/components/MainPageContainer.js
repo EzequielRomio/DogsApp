@@ -9,7 +9,7 @@ export const MainPageContainer = () => {
     return (
     <div>
         <Title isMain={'title'}/>
-        <Image imgToDisplay={dog_img} altDescription={'White and black dog'}/>
+        <Image imgToDisplay={dog_img} altDescription={'White and black dog'} imgWidth={"300"} imgHeight={"300"} />
         <MainPageButton />
     </div>
     )
