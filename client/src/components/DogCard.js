@@ -4,7 +4,7 @@ import {Image} from './Image';
 
 export const DogCard = ({dog}) => {
     return (
-        <div>
+        <div style={{border: "2px solid", borderColor: "black"}}>
             <div>
                 <h5>Name: </h5>
                 <p>{dog.name}</p>

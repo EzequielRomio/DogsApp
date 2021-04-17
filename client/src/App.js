@@ -5,6 +5,10 @@ import {MainPageContainer} from './components/MainPageContainer.js';
 import {NavBar} from './components/NavBar.js';
 import {Title} from './components/Title.js';
 import {CardsContainer} from './components/CardsContainer.js';
+import {SearchBar} from './components/SearchBar.js';
+import {SortBar} from './components/SortBar.js';
+import {FiltersContainer} from './components/FiltersContainer.js';
+
 
 function App() {
   return (
@@ -24,6 +28,21 @@ function App() {
         component={NavBar}
       />
       
+      <Route 
+        exact path='/dogs'
+        component={SearchBar}
+      />
+
+      <Route
+        exact path='/dogs'
+        component={SortBar}
+      />
+
+      <Route 
+        exact path='/dogs' 
+        component={FiltersContainer} 
+      />
+
       <Route 
         exact path='/dogs'
         component={CardsContainer}
