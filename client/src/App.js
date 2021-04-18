@@ -8,6 +8,8 @@ import {CardsContainer} from './components/CardsContainer.js';
 import {SearchBar} from './components/SearchBar.js';
 import {SortBar} from './components/SortBar.js';
 import {FiltersContainer} from './components/FiltersContainer.js';
+import {DogCard} from './components/DogCard.js';
+import {ReturnButton} from './components/ReturnButton.js';
 
 
 function App() {
@@ -47,6 +49,23 @@ function App() {
         exact path='/dogs'
         component={CardsContainer}
       />
+
+      <Route
+        path={'/dogs/details'}
+        render={()=> <DogCard fullData={true} dog={{
+          name: "NOMBRE",
+          image: "https://cdn2.thedogapi.com/images/BJa4kxc4X.jpg",
+          temperaments: "Docil, tonificado, acuatico, bardero",
+          weight: "47 kg",
+          height: "60 cm",
+          life_span: "14 - 17 years"
+        }}/>}  
+      />
+
+        <Route 
+          strict path={'/dogs/'}
+          component={ReturnButton}        
+        />
 
     </div>
   );

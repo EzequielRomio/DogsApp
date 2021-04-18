@@ -2,7 +2,20 @@ import React from 'react';
 
 import {Image} from './Image';
 
-export const DogCard = ({dog}) => {
+const setDetails = (dog) => {
+    return (
+        <div>
+            <h5>Height: </h5>
+            <p>{dog.height}</p>
+            <h5>Weight: </h5>
+            <p>{dog.weight}</p>
+            <h5>Life Span: </h5>
+            <p>{dog.life_span}</p>
+        </div>
+    )
+}
+
+export const DogCard = ({dog, fullData}) => {
     return (
         <div style={{border: "2px solid", borderColor: "black"}}>
             <div>
@@ -11,6 +24,7 @@ export const DogCard = ({dog}) => {
                 <h5>Temperaments: </h5>
                 <p>{'Dog.temperaments (this will be a json or array, so use a map())'}</p>
             </div>
+            {fullData && setDetails(dog)}
             <Image imgToDisplay={dog.image} altDescription={'Dog´s breed'} />
         </div>
     )
