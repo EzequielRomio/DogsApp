@@ -6,10 +6,10 @@ export const ReturnButton = () => {
     return (
         <div>
             <Link to={'/dogs'}>
-                <h4> 
+                <span> 
                     <div style={{fontSize: "32px"}}> &#8592; </div>
                     Return Home
-                </h4>
+                </span>
             </Link>
         </div>
     )
