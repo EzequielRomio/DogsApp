@@ -5,12 +5,13 @@ import {connect} from 'react-redux';
 
 
 const Filters = ({filterLabel, temperaments, breeds}) => {
-    let filterType = null;
-    filterLabel === 'Breed' ? filterType = breeds : filterType = temperaments.map(t => {
-        if (typeof t === 'string') {return t}
-        else {return t.name}
+    let temperamentsNames = null;
+    if (filterLabel === 'Temperament') {
+        temperamentsNames = temperaments.map(t => {
+            if (typeof t === 'string') {return t}
+            else {return t.name}
         })
-    const [filter, setFilter] = useState(filterType)
+    }
 
     const displayOptions = (filter) => {
         return filter.map((label, ix)=> {
@@ -24,8 +25,7 @@ const Filters = ({filterLabel, temperaments, breeds}) => {
         <div>
             <label>Filter by {filterLabel}</label>
             <select>
-                {filterLabel === 'Breed' && displayOptions(breeds)}
-                {Array.isArray(filter) && filter.length > 1 && displayOptions(filter)}
+                {(filterLabel === 'Breed' && displayOptions(breeds)) || (temperamentsNames && displayOptions(temperamentsNames))}
             </select>
         </div>
     )
