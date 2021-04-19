@@ -33,7 +33,7 @@ function getDogs(req, res, next) {
             .then(dogs => {
                 let [dogsApiResult, dogsDBResult] = dogs;
                 let data = dogsDBResult.concat(dogsApiResult.data);
-                data = data.splice(0, 8)
+                //data = data.splice(0, 8)
                 data = data.map(dog => setDogData(dog));
                 return res.status(200).json(data);    
             })
