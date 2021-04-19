@@ -6,7 +6,7 @@ import {NavBar} from './components/NavBar.js';
 import {Title} from './components/Title.js';
 import CardsContainer from './components/CardsContainer.js';
 import {SearchBar} from './components/SearchBar.js';
-import {SortBar} from './components/SortBar.js';
+import SortBar from './components/SortBar.js';
 import {FiltersContainer} from './components/FiltersContainer.js';
 import {DogCard} from './components/DogCard.js';
 import {ReturnButton} from './components/ReturnButton.js';
@@ -51,7 +51,7 @@ function App() {
       />
       
       <Route
-        path={'/dogs/details'}
+        path='/dogs/details/:breed'
         render={()=> <DogCard fullData={true} dog={{
           name: "NOMBRE",
           image: "https://cdn2.thedogapi.com/images/BJa4kxc4X.jpg",

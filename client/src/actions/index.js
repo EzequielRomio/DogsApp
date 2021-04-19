@@ -14,7 +14,8 @@ export const getTemperaments = () => {
     return function (dispatch) {
         axios.get("http://localhost:3001/temperament", {responseType: 'json'})
             .then(res => {
-                return res.data
+                console.log(res.data);
+                return res.data;
             }).then(temperaments => {return dispatch({ type: "GET_TEMPERAMENTS", payload: temperaments })})
     }
 }

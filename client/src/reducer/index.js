@@ -4,24 +4,24 @@ const initialState = {
     dogsToDisplay: []
 }
 
-const sortWeights = (array, order) => {
+const sortWeights = (array, orderAsc) => {
     const mapped = array.map((element, ix) => {
         let weight = element['weight'].split(' ')
         let value = parseInt(weight[0])
         return {ix, value}
     })
 
-    order === 'asc' ? mapped.sort((a, b) => a.value - b.value) : mapped.sort((a, b) => b.value - a.value);
+    orderAsc ? mapped.sort((a, b) => a.value - b.value) : mapped.sort((a, b) => b.value - a.value);
     return mapped.map((element) => {return array[element.ix]})
 }
 
-const sortBreeds = (array, order) => {
+const sortBreeds = (array, orderAsc) => {
     const mapped = array.map((element, ix) => {
         let value = element['name'].toLowerCase();
         return {ix, value}
     })
 
-    order === 'asc' ? mapped.sort((a, b) => (a.value).localeCompare(b.value)) : mapped.sort((a, b) => (b.value).localeCompare(a.value));
+    orderAsc ? mapped.sort((a, b) => (a.value).localeCompare(b.value)) : mapped.sort((a, b) => (b.value).localeCompare(a.value));
     return mapped.map((element) => {return array[element.ix]})
 }
 
@@ -35,6 +35,7 @@ const rootReducer = (state = initialState, actions) => {
             return {...state, breeds: state.dogs.map(dog => dog.name)};
         
         case 'GET_TEMPERAMENTS':
+            console.log('entre a get temperaments')
             return {...state, temperaments: actions.payload};
 
         case 'ADD_DOG':
@@ -44,10 +45,9 @@ const rootReducer = (state = initialState, actions) => {
             return {...state, dogs: sortBreeds(state.dogs, actions.payload)};
 
         case 'SORT_WEIGHTS': 
-            return {...state, dogs: sortWeights(state.dogs, actions.payload, 'weight')};
+            return {...state, dogs: sortWeights(state.dogs, actions.payload)};
 
         default:
-            console.log('pase por el default', state)
             return state;
     };
 }
