@@ -1,7 +1,7 @@
 const initialState = {
     dogs: [],
-    breeds: [],
     temperaments: [],
+    dogsToDisplay: []
 }
 
 const sortWeights = (array, order) => {
@@ -16,7 +16,6 @@ const sortWeights = (array, order) => {
 }
 
 const sortBreeds = (array, order) => {
-    
     const mapped = array.map((element, ix) => {
         let value = element['name'].toLowerCase();
         return {ix, value}
@@ -26,10 +25,10 @@ const sortBreeds = (array, order) => {
     return mapped.map((element) => {return array[element.ix]})
 }
 
+
 const rootReducer = (state = initialState, actions) => {
     switch(actions.type) {
         case 'GET_DOGS':
-            console.log('entre al if del reducer')
             return {...state, dogs: actions.payload};
         
         case 'GET_BREEDS':

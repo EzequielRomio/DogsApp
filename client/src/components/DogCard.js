@@ -22,7 +22,7 @@ export const DogCard = ({dog, fullData}) => {
                 <h5>Name: </h5>
                 <p>{dog.name}</p>
                 <h5>Temperaments: </h5>
-                <p>{'Dog.temperaments (this will be a json or array, so use a map())'}</p>
+                <p>{dog.temperaments}</p>
             </div>
             {fullData && setDetails(dog)}
             <Image imgToDisplay={dog.image} altDescription={'Dog´s breed'} />

@@ -5,22 +5,35 @@ import {Link} from 'react-router-dom';
 import {DogCard} from './DogCard.js'; 
 import {getDogs} from '../actions/index.js';
 
+const setTemperaments = (temps) => {
+    return (temps.map(t => t.name)).join(' ')
+}
 
-const CardsContainer = (props) => {
-    //getDogs()
-    return (
-        <div>
-            Here dogs will be displayed
-            {/* map() dogcard with props.dogs */}
-            {/* {dogs.map(dog => {
-                <Link to={'/dogs/details'}>
-                    <DogCard dog={{name: dog.name, image: dog.image}} />
-                <Link />
-                })} */}
-            <Link to={'/dogs/details'}>
-                <DogCard dog={{name: 'Waterdog', image: 'https://cdn2.thedogapi.com/images/BJa4kxc4X.jpg'}} />
+const setDogsToDisplay = (dogs) => {
+    const dogsToDisplay = dogs.splice(0, 8);
+    return dogsToDisplay.map((dog) => {
+        return (
+        <div key={dog.id} style={{margin: "20px 350px 20px 350px"}}>
+            <Link to={'/dogs/details'} >
+                <DogCard dog={{name: dog.name, image: dog.image.url, temperaments: setTemperaments(dog.temperaments)}} />
             </Link>
-            {console.log(props)}
+        </div>
+        )
+    })
+}
+
+const CardsContainer = ({dogs}) => {
+    const handleClick = (e) => {
+        e.preventDefault()
+        alert('hola');
+        return setDogsToDisplay(dogs)
+    }
+    
+    return (
+        <div style={{display: "flex", alignContent: "space-between", flexDirection: "column"}}>
+            Here dogs will be displayed
+            {setDogsToDisplay(dogs)}
+            <button onClick={(e) => handleClick(e)}>More!</button>
         </div>
     )
 }
@@ -31,4 +44,4 @@ function mapStateToProps(state) {
     }
 }
 
-export default connect(mapStateToProps, {getDogs})(CardsContainer);
+export default connect(mapStateToProps)(CardsContainer);

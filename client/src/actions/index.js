@@ -1,10 +1,5 @@
 const axios = require('axios');
 
-// export const getDogs = () => {
-//     console.log('entre al action')
-//     return {type: 'GET_DOGS'}
-// }
-
 export const getDogs = () => {
     return function (dispatch) {
         axios.get("http://localhost:3001/dogs", {responseType: 'json'})
@@ -12,17 +7,16 @@ export const getDogs = () => {
                 console.log(res.data);
                 return res.data.map(dog => {return {...dog, weight: dog.weight.metric}})
             }).then(dogs => {return dispatch({ type: "GET_DOGS", payload: dogs })})
-        
-        
     }
 }
 
-export const getTemperaments = () => {
-    axios.get("http://localhost:3001/temperament", {responseType: 'json'})
-        .then(res => {
-            console.log(res.data);
-            return {type: "GET_TEMPERAMENTS", payload: res.data};
-        });
+export const getTemperaments = () => { 
+    return function (dispatch) {
+        axios.get("http://localhost:3001/temperament", {responseType: 'json'})
+            .then(res => {
+                return res.data
+            }).then(temperaments => {return dispatch({ type: "GET_TEMPERAMENTS", payload: temperaments })})
+    }
 }
 
 export const getBreeds = () => {
