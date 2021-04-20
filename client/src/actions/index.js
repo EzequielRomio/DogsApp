@@ -24,6 +24,20 @@ export const getBreeds = () => {
     return {type: "GET_BREEDS"}
 }
 
+export const filterBreeds = (payload) => {
+    // if (payload === '-') {
+    //     return function (dispatch) {
+    //         axios.get("http://localhost:3001/dogs", {responseType: 'json'})
+    //             .then(res => {
+    //                 console.log(res.data);
+    //                 return res.data.map(dog => {return {...dog, weight: dog.weight.metric}})
+    //             }).then(dogs => {return dispatch({ type: "FILTER_BREEDS", payload: {...dogs, payload}})})
+    //     }
+    
+    // }
+    return {type: 'FILTER_BREEDS', payload}
+}
+
 export const postDog = (payload) => {
     axios.post("http://localhost:3001/dog", payload, {responseType: 'json'})
         .then(res => {

@@ -23,17 +23,19 @@ const setTemperaments = (temps) => {
 //     })
 // }
 
-const CardsContainer = ({dogs}) => {
+const CardsContainer = ({dogs, filtered}) => {
     // const handleClick = (e) => {
     //     e.preventDefault()
     //     alert('hola');
     //     return setDogsToDisplay(dogs)
     // }
     
+    let dogsToDisplay = null;
+    filtered.length > 1 ? dogsToDisplay = filtered : dogsToDisplay = dogs;
+
     return (
         <div style={{display: "flex", alignContent: "space-between", flexDirection: "column"}}>
-            Here dogs will be displayed
-            {dogs.map(dog => {
+            {dogsToDisplay.map(dog => {
                 return (
                     <div key={dog.id} style={{margin: "20px 350px 20px 350px"}}>
                         <Link to={`/dogs/details/${dog.name}`} >
@@ -50,7 +52,8 @@ const CardsContainer = ({dogs}) => {
 
 function mapStateToProps(state) {
     return {
-        dogs: state.dogs
+        dogs: state.dogs,
+        filtered: state.filtered
     }
 }
 

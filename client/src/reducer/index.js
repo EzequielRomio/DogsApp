@@ -2,7 +2,7 @@ const initialState = {
     dogs: [],
     temperaments: [],
     dogsToDisplay: [],
-    breeds: [],
+    filtered: [],
 }
 
 const sortWeights = (array, orderAsc) => {
@@ -43,6 +43,16 @@ const rootReducer = (state = initialState, actions) => {
 
         case 'SORT_WEIGHTS': 
             return {...state, dogs: sortWeights(state.dogs, actions.payload)};
+
+        case 'FILTER_BREEDS': 
+            if (actions.payload === '-') {
+                return {...state, filtered: state.dogs};    
+            } else {
+                return {...state, filtered: state.dogs.filter(dog => dog.name === actions.payload)}
+            }
+        
+        // case 'FILTER_TEMPERAMENTS': 
+        //     return {...state, filtered: dogs.filter(dog => dog.temperaments.name === actions.payload)}
 
         default:
             return state;

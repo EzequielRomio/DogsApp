@@ -1,31 +1,50 @@
 import React, {useEffect, useState} from 'react';
 import {connect} from 'react-redux';
 
-//import {getBreeds} from '../actions/index.js';
+import {filterBreeds} from '../actions/index.js';
+
+const sortTemperaments = (array) => {
+    const mapped = array.map((element, ix) => {
+        let value = element.toLowerCase();
+        return {ix, value}
+    })
+
+    mapped.sort((a, b) => (a.value).localeCompare(b.value));
+    return mapped.map((element) => {return array[element.ix]})
+}
 
 
-const Filters = ({filterLabel, temperaments, breeds}) => {
+
+const Filters = ({filterLabel, temperaments, breeds, filterBreeds}) => {
     let temperamentsNames = null;
     if (filterLabel === 'Temperament') {
         temperamentsNames = temperaments.map(t => {
             if (typeof t === 'string') {return t}
             else {return t.name}
         })
+        temperamentsNames = sortTemperaments(temperamentsNames)
+    }
+
+    const handleClick = (e) => {
+        e.preventDefault();
+        console.log(e.target.value)
+        filterBreeds(e.target.value)
     }
 
     const displayOptions = (filter) => {
         return filter.map((label, ix)=> {
             return (
-                <option key={ix}>{label}</option>
+                <option name={label} onChange={(e) => handleClick(e)} key={ix}>{label}</option>
             )
         })
     }
-
+    
     return (
         <div>
             <label>Filter by {filterLabel}</label>
-            <select>
-                {(filterLabel === 'Breed' && displayOptions(breeds)) || (temperamentsNames && displayOptions(temperamentsNames))}
+            <select onChange={(e) => handleClick(e)}>
+                <option name={'initial'} key={'initial'}>-</option>
+                {(breeds && (filterLabel === 'Breed' && displayOptions(breeds))) || (temperamentsNames && displayOptions(temperamentsNames))}
             </select>
         </div>
     )
@@ -38,4 +57,10 @@ function mapStateToProps(state) {
     }
 }
 
-export default connect(mapStateToProps)(Filters)
+function mapDispatchToProps(dispatch) {
+    return {
+        filterBreeds: breedName => dispatch(filterBreeds(breedName))
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Filters)
