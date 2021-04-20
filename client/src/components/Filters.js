@@ -3,17 +3,6 @@ import {connect} from 'react-redux';
 
 import {filterBreeds, filterTemperaments} from '../actions/index.js';
 
-const sortTemperaments = (array) => {
-    const mapped = array.map((element, ix) => {
-        let value = element.toLowerCase();
-        return {ix, value}
-    })
-
-    mapped.sort((a, b) => (a.value).localeCompare(b.value));
-    return mapped.map((element) => {return array[element.ix]})
-}
-
-
 
 const Filters = ({filterLabel, temperaments, breeds, filterBreeds, filterTemperaments}) => {
     let temperamentsNames = null;
@@ -22,7 +11,6 @@ const Filters = ({filterLabel, temperaments, breeds, filterBreeds, filterTempera
             if (typeof t === 'string') {return t}
             else {return t.name}
         })
-        temperamentsNames = sortTemperaments(temperamentsNames)
     }
 
     const handleClick = (e) => {

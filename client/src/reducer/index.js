@@ -5,6 +5,17 @@ const initialState = {
     filtered: [],
 }
 
+const sortTemperaments = (temperaments) => {
+    const mapped = temperaments.map((temp, ix) => {
+        let value = temp.name.toLowerCase();
+        return {ix, value}
+    })
+
+    mapped.sort((a, b) => (a.value).localeCompare(b.value));
+    return mapped.map((element) => {return temperaments[element.ix]})
+}
+
+
 const sortWeights = (array, orderAsc) => {
     const mapped = array.map((element, ix) => {
         let weight = element['weight'].split(' ')
@@ -47,7 +58,7 @@ const rootReducer = (state = initialState, actions) => {
             return {...state, dogs: actions.payload, breeds: actions.payload.map(dog => dog.name)};
         
         case 'GET_TEMPERAMENTS':
-            return {...state, temperaments: actions.payload};
+            return {...state, temperaments: sortTemperaments(actions.payload)};
 
         case 'ADD_DOG':
             return {...state, dogs: state.dogs.concat(actions.payload)};
