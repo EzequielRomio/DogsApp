@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {connect} from 'react-redux';
 
-const createTemperamentsCheckBox = (temperamentList, temperamentsChecked, handleChange) => {
+const createTemperamentsCheckBox = (temperamentList, handleChange) => {
     return (
         temperamentList.map(temp => {
             return (
@@ -19,8 +19,12 @@ const createTemperamentsCheckBox = (temperamentList, temperamentsChecked, handle
         })   
     )    
 }
-// createTemperamentsCheckBox(temperamentList, auxTemperaments, handleChange)
+
+
+/*********** Component starts here *************/
 const CreateDog = ({temperamentList}) => {
+    
+    /****** Local states ******/
     const [inputs, setInputs] = useState({
         name: '',
         maxHeight: '',
@@ -30,10 +34,19 @@ const CreateDog = ({temperamentList}) => {
         life_span: '',
         temperaments: ''
     })
-    //const [selectedTemperaments, setSelectedTemperaments] = useState([])
     const [temperamentsChecked, setTemperamentsChecked] = useState({})
-    const [customTemperament, setCustomTemperament] = useState('')
+    const [customTemperament, setCustomTemperament] = useState([])
 
+
+    /****** useEffect *******/
+    useEffect(() => {
+        console.log(customTemperament, 'custom Temperaments')
+        console.log(inputs)
+    
+    }, [inputs, temperamentsChecked, customTemperament])
+
+
+    /******* Events Handlers ********/
     const handleChange = (e) => {
         // VALIDAR FORM / ERRORES
         setInputs({
@@ -42,26 +55,17 @@ const CreateDog = ({temperamentList}) => {
         });
     }
 
-    const parseNewTemperament = (newTemp) => {
-        const temperaments = newTemp.split('-');
-        const result = temperaments.map((temp, ix) => {
-            let txt = '';
-            if (temp.length > 0) {
-                for (let i=0; i<temp.length; i++) {
-                    let ch = temp[i];
-                    i === 0 ? txt += ch.toUpperCase() : txt += ch;
-                };
-                if (ix < temperaments.length -1) {txt += ', '};
-            };
-            return txt;
-        })
-
-        return result.join('')
-    }
-
     const handleNewTemperament = (e) => {
         e.preventDefault();
         setCustomTemperament(parseNewTemperament(e.target.value));
+    }
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        setInputs({
+            ...inputs,
+            temperaments: joinTemperaments(temperamentsChecked, customTemperament)
+        })
     }
 
     const checkboxChange = (e) => {
@@ -71,14 +75,30 @@ const CreateDog = ({temperamentList}) => {
         })
     }
 
-    useEffect(() => {
-        console.log(customTemperament)
-    
-    }, [inputs, temperamentsChecked, customTemperament])
+
+    /*********** Auxiliar methods **************/ 
+    const joinTemperaments = (temperamentsChecked, customTemperament) => {
+        const result = [];
+        for (const temp in temperamentsChecked) {
+            if (temperamentsChecked[temp]) {result.push(temp)}
+        }
+        return result.concat(customTemperament).join(', ')
+    }
+
+    const parseNewTemperament = (newTemp) => {
+        const temperaments = newTemp.split('-');
+        return temperaments.map(temperament => {
+            if (temperament.length > 0) {
+                return temperament.charAt(0).toUpperCase() + temperament.slice(1)
+            }
+        })
+    }
+
+
 
     return (
         <div>
-            <form>
+            <form onSubmit={handleSubmit}>
                 <h2>Create New Dog</h2>
                 <div>
                     <label>Name</label>
@@ -141,7 +161,7 @@ const CreateDog = ({temperamentList}) => {
                         {
                             temperamentList && 
                             temperamentList.length > 0 &&
-                            createTemperamentsCheckBox(temperamentList, temperamentsChecked, checkboxChange)
+                            createTemperamentsCheckBox(temperamentList, checkboxChange)
                         }
 
                     </div>
@@ -152,6 +172,7 @@ const CreateDog = ({temperamentList}) => {
                     <label>Insert a new temperament, or temperaments separated by "-"</label>
                     <input type="text" name="newTemperament" onChange={handleNewTemperament} placeholder="Adventurous-Active-Fun-loving"></input>
                 </div>
+                <input type="submit" value="Send Data"></input>
             </form>
         </div>
     )
@@ -160,7 +181,7 @@ const CreateDog = ({temperamentList}) => {
 const mapStateToProps = (state) => {
     return {
         temperamentList: state.temperaments 
-        //temperamentList is an alias to prevent overwriting temperaments inputs property
+        // temperamentList is an alias to prevent overwriting temperaments inputs property
     }
 }
 
