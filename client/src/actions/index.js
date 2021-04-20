@@ -42,6 +42,7 @@ export const filterTemperaments = (payload) => {
     return {type: 'FILTER_TEMPERAMENTS', payload}
 };
 
+// CHEQUEAR BIEN ESTOOOOOOOO
 export const postDog = (payload) => {
     axios.post("http://localhost:3001/dog", payload, {responseType: 'json'})
         .then(res => {
@@ -58,4 +59,8 @@ export const sortByBreeds = (payload) => {
 
 export const sortByWeights = (payload) => {
     return {type: 'SORT_WEIGHTS', payload}
+}
+
+export const searchName = (payload) => {
+    return {type: 'SEARCH_NAME', payload}
 }

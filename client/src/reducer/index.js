@@ -58,10 +58,10 @@ const rootReducer = (state = initialState, actions) => {
             return {...state, dogs: state.dogs.concat(actions.payload)};
 
         case 'SORT_BREEDS':
-            return {...state, dogs: sortBreeds(state.dogs, actions.payload)};
+            return {...state, filtered: sortBreeds(state.dogs, actions.payload)};
 
         case 'SORT_WEIGHTS': 
-            return {...state, dogs: sortWeights(state.dogs, actions.payload)};
+            return {...state, filtered: sortWeights(state.dogs, actions.payload)};
 
         case 'FILTER_BREEDS':
             console.log('entre a filter breed') 
@@ -78,6 +78,9 @@ const rootReducer = (state = initialState, actions) => {
             } else {
                 return {...state, filtered: state.dogs.filter(dog => searchTemperament(dog, actions.payload))}
             };
+
+        case 'SEARCH_NAME':
+            return {...state, filtered: state.dogs.filter(dog => dog.name.toLowerCase() === actions.payload.toLowerCase())}    
 
         default:
             return state;
