@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {connect} from 'react-redux';
 
-import {filterBreeds} from '../actions/index.js';
+import {filterBreeds, filterTemperaments} from '../actions/index.js';
 
 const sortTemperaments = (array) => {
     const mapped = array.map((element, ix) => {
@@ -15,7 +15,7 @@ const sortTemperaments = (array) => {
 
 
 
-const Filters = ({filterLabel, temperaments, breeds, filterBreeds}) => {
+const Filters = ({filterLabel, temperaments, breeds, filterBreeds, filterTemperaments}) => {
     let temperamentsNames = null;
     if (filterLabel === 'Temperament') {
         temperamentsNames = temperaments.map(t => {
@@ -28,7 +28,9 @@ const Filters = ({filterLabel, temperaments, breeds, filterBreeds}) => {
     const handleClick = (e) => {
         e.preventDefault();
         console.log(e.target.value)
-        filterBreeds(e.target.value)
+        if (filterLabel === 'Breed') {filterBreeds(e.target.value)};
+        if (filterLabel === 'Temperament') {console.log(filterLabel); filterTemperaments(e.target.value)};
+        
     }
 
     const displayOptions = (filter) => {
@@ -59,8 +61,9 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        filterBreeds: breedName => dispatch(filterBreeds(breedName))
-    }
+        filterBreeds: breedName => dispatch(filterBreeds(breedName)),
+        filterTemperaments: tempName => dispatch(filterTemperaments(tempName))
+    };
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Filters)

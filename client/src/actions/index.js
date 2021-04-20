@@ -38,6 +38,10 @@ export const filterBreeds = (payload) => {
     return {type: 'FILTER_BREEDS', payload}
 }
 
+export const filterTemperaments = (payload) => {
+    return {type: 'FILTER_TEMPERAMENTS', payload}
+};
+
 export const postDog = (payload) => {
     axios.post("http://localhost:3001/dog", payload, {responseType: 'json'})
         .then(res => {

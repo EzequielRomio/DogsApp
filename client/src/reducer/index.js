@@ -26,6 +26,25 @@ const sortBreeds = (array, orderAsc) => {
     return mapped.map((element) => {return array[element.ix]})
 }
 
+const searchTemperament = (dog, temperament) => {
+    if (typeof dog.temperaments !== 'string' && dog.temperaments) {
+        //console.log(dog.temperaments)
+        for (const temps of dog.temperaments) {
+            const splitted = temps.name.replace(/,/g, '').split(' ');
+            for (const temp of splitted) {
+                console.log(temp, temperament)
+                if (temp === temperament) {
+                    console.log('match!')
+                    return dog;
+                }
+            }
+        }
+    } else { 
+        return false;
+    };
+
+}
+
 
 const rootReducer = (state = initialState, actions) => {
     switch(actions.type) {
@@ -44,15 +63,21 @@ const rootReducer = (state = initialState, actions) => {
         case 'SORT_WEIGHTS': 
             return {...state, dogs: sortWeights(state.dogs, actions.payload)};
 
-        case 'FILTER_BREEDS': 
+        case 'FILTER_BREEDS':
+            console.log('entre a filter breed') 
             if (actions.payload === '-') {
                 return {...state, filtered: state.dogs};    
             } else {
                 return {...state, filtered: state.dogs.filter(dog => dog.name === actions.payload)}
-            }
+            };
         
-        // case 'FILTER_TEMPERAMENTS': 
-        //     return {...state, filtered: dogs.filter(dog => dog.temperaments.name === actions.payload)}
+        case 'FILTER_TEMPERAMENTS':
+            console.log('entre a filter temp')
+            if (actions.payload === '-') {
+                return {...state, filtered: state.dogs};
+            } else {
+                return {...state, filtered: state.dogs.filter(dog => searchTemperament(dog, actions.payload))}
+            };
 
         default:
             return state;
