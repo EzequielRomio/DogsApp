@@ -30,13 +30,8 @@ const searchTemperament = (dog, temperament) => {
     if (typeof dog.temperaments !== 'string' && dog.temperaments) {
         //console.log(dog.temperaments)
         for (const temps of dog.temperaments) {
-            const splitted = temps.name.replace(/,/g, '').split(' ');
-            for (const temp of splitted) {
-                console.log(temp, temperament)
-                if (temp === temperament) {
-                    console.log('match!')
-                    return dog;
-                }
+            if (temps.name.toLowerCase().includes(temperament.toLowerCase())) {
+                return dog
             }
         }
     } else { 
@@ -80,7 +75,7 @@ const rootReducer = (state = initialState, actions) => {
             };
 
         case 'SEARCH_NAME':
-            return {...state, filtered: state.dogs.filter(dog => dog.name.toLowerCase() === actions.payload.toLowerCase())}    
+            return {...state, filtered: state.dogs.filter(dog => dog.name.toLowerCase().includes(actions.payload.toLowerCase()))}    
 
         default:
             return state;

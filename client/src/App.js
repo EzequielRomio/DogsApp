@@ -10,7 +10,7 @@ import SortBar from './components/SortBar.js';
 import {FiltersContainer} from './components/FiltersContainer.js';
 import {DogCard} from './components/DogCard.js';
 import {ReturnButton} from './components/ReturnButton.js';
-import {CreateDog} from './components/CreateDog.js';
+import CreateDog from './components/CreateDog.js';
 
 function App() {
   return (
