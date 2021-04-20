@@ -9,14 +9,12 @@ import {getDogs, getTemperaments} from '../actions/index.js';
 
 
 const MainPageContainer = ({getDogs, getTemperaments}) => {
-    // const handleClick = (e) => {
-    //     e.preventDefault();
+    
     useEffect(()=>{
         getDogs();
         getTemperaments();
     }, [])
 
-    // }
     return (
     <div>
         <Title isMain={'title'}/>

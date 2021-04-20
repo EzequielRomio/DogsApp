@@ -5,10 +5,9 @@ const createTemperamentsCheckBox = (temperamentList, handleChange) => {
     return (
         temperamentList.map(temp => {
             return (
-            <div style={{margin: '10px', width: '180px'}}>
+            <div key={temp.id} style={{margin: '10px', width: '180px'}}>
                 <label>{temp.name}</label>
                     <input
-                        key={temp.id}
                         onChange={handleChange}
                         value={temp.name}
                         type="checkbox"
@@ -20,6 +19,13 @@ const createTemperamentsCheckBox = (temperamentList, handleChange) => {
     )    
 }
 
+const validateBody = (inputs) => {
+    const errors = {}
+    if (!inputs.name || inputs.name.length < 2) {
+        errors.name = 'Name must have al least 2 letters!'
+    } 
+    //if (!maxHeight)
+}
 
 /*********** Component starts here *************/
 const CreateDog = ({temperamentList}) => {
@@ -27,11 +33,11 @@ const CreateDog = ({temperamentList}) => {
     /****** Local states ******/
     const [inputs, setInputs] = useState({
         name: '',
-        maxHeight: '',
-        minHeight: '',
-        maxWeight: '',
-        minWeight: '',
-        life_span: '',
+        maxHeight: '' || '0',
+        minHeight: '' || '0',
+        maxWeight: '' || '0',
+        minWeight: '' || '0',
+        life_span: '' || '0',
         temperaments: ''
     })
     const [temperamentsChecked, setTemperamentsChecked] = useState({})
@@ -86,14 +92,23 @@ const CreateDog = ({temperamentList}) => {
     }
 
     const parseNewTemperament = (newTemp) => {
+        //if (newTemp.includes(' ')) {alert('Only Letters or - !')}
         const temperaments = newTemp.split('-');
-        return temperaments.map(temperament => {
-            if (temperament.length > 0) {
-                return temperament.charAt(0).toUpperCase() + temperament.slice(1)
-            }
-        })
+        return (
+            temperaments
+            .filter(temperament => temperament.length > 0 && validateTemperament(temperament))
+            .map(temperament => temperament.charAt(0).toUpperCase() + temperament.slice(1))
+        )
     }
 
+    const validateTemperament = (temperament) => {
+        const letters = temperament.split('');
+        let isValid = true;
+        for (const ch of letters) {
+            if (ch.toUpperCase() === ch.toLowerCase()) {isValid = false; break}
+        }
+        return isValid;
+    }
 
 
     return (
@@ -114,7 +129,7 @@ const CreateDog = ({temperamentList}) => {
                     <input
                         value={inputs.maxHeight}
                         onChange={handleChange}
-                        type="text"
+                        type="number"
                         name="maxHeight"
                     ></input>
                 </div>

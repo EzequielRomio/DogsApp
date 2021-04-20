@@ -39,16 +39,12 @@ const sortBreeds = (array, orderAsc) => {
 
 const searchTemperament = (dog, temperament) => {
     if (typeof dog.temperaments !== 'string' && dog.temperaments) {
-        //console.log(dog.temperaments)
         for (const temps of dog.temperaments) {
-            if (temps.name.toLowerCase().includes(temperament.toLowerCase())) {
-                return dog
-            }
+            if (temps.name.toLowerCase().includes(temperament.toLowerCase())) {return dog};
         }
     } else { 
         return false;
     };
-
 }
 
 
@@ -70,7 +66,6 @@ const rootReducer = (state = initialState, actions) => {
             return {...state, filtered: sortWeights(state.dogs, actions.payload)};
 
         case 'FILTER_BREEDS':
-            console.log('entre a filter breed') 
             if (actions.payload === '-') {
                 return {...state, filtered: state.dogs};    
             } else {

@@ -1,9 +1,9 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
 
 import {DogCard} from './DogCard.js'; 
-import {getDogs} from '../actions/index.js';
+//import {getDogs} from '../actions/index.js';
 
 const setTemperaments = (temps) => {
     if (!temps || !Array.isArray(temps)) {return 'Chill'};
@@ -24,12 +24,6 @@ const setTemperaments = (temps) => {
 // }
 
 const CardsContainer = ({dogs, filtered}) => {
-    // const handleClick = (e) => {
-    //     e.preventDefault()
-    //     alert('hola');
-    //     return setDogsToDisplay(dogs)
-    // }
-    
     let dogsToDisplay = null;
     filtered.length > 1 ? dogsToDisplay = filtered : dogsToDisplay = dogs;
 

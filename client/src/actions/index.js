@@ -4,7 +4,6 @@ export const getDogs = () => {
     return function (dispatch) {
         axios.get("http://localhost:3001/dogs", {responseType: 'json'})
             .then(res => {
-                console.log(res.data);
                 return res.data.map(dog => {return {...dog, weight: dog.weight.metric}})
             }).then(dogs => {return dispatch({ type: "GET_DOGS", payload: dogs })})
     }
@@ -14,7 +13,6 @@ export const getTemperaments = () => {
     return function (dispatch) {
         axios.get("http://localhost:3001/temperament", {responseType: 'json'})
             .then(res => {
-                console.log(res.data);
                 return res.data;
             }).then(temperaments => {return dispatch({ type: "GET_TEMPERAMENTS", payload: temperaments })})
     }
@@ -25,16 +23,6 @@ export const getBreeds = () => {
 }
 
 export const filterBreeds = (payload) => {
-    // if (payload === '-') {
-    //     return function (dispatch) {
-    //         axios.get("http://localhost:3001/dogs", {responseType: 'json'})
-    //             .then(res => {
-    //                 console.log(res.data);
-    //                 return res.data.map(dog => {return {...dog, weight: dog.weight.metric}})
-    //             }).then(dogs => {return dispatch({ type: "FILTER_BREEDS", payload: {...dogs, payload}})})
-    //     }
-    
-    // }
     return {type: 'FILTER_BREEDS', payload}
 }
 

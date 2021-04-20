@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import {connect} from 'react-redux';
 
 import {sortByBreeds, sortByWeights} from '../actions/index.js'
@@ -8,7 +8,6 @@ const SortBar = ({sortBreeds, sortWeights}) => {
     const [weightSwitch, setWeightSwitch] = useState(true);
 
     const toggle = (property) => {
-        //property === 'breed' ? setBreedFlag(!breedFlag) : setWeightFlag(!weightFlag);
         if (property === 'breed') {
             setBreedSwitch(!breedSwitch);
             sortBreeds(breedSwitch);
