@@ -10,6 +10,20 @@ export const getDogs = () => {
     }
 }
 
+export const postDog = (payload) => {
+    return function (dispatch) {
+        const body = {...payload, weight: {metric: payload.weight}, height: {metric: payload.height}, temperament: payload.temperaments}
+        console.log(body, 'soy el body')
+        axios.post("http://localhost:3001/dog", body, {responseType: 'json'})
+            .then(res => {
+                console.log(res, res.data)
+                const newDog = {...payload, id: res.data.id}
+                return dispatch({type: 'ADD_DOG', payload: newDog})
+            })
+    }
+}
+
+
 export const getTemperaments = () => { 
     return function (dispatch) {
         axios.get("http://localhost:3001/temperament", {responseType: 'json'})
@@ -30,17 +44,6 @@ export const filterBreeds = (payload) => {
 export const filterTemperaments = (payload) => {
     return {type: 'FILTER_TEMPERAMENTS', payload}
 };
-
-// CHEQUEAR BIEN ESTOOOOOOOO
-export const postDog = (payload) => {
-    axios.post("http://localhost:3001/dog", payload, {responseType: 'json'})
-        .then(res => {
-            console.log(res.data);
-            const id = res.data.id
-            const newDog = {...payload, id}
-            return {type: "ADD_DOG", newDog};
-        });
-}
 
 export const sortByBreeds = (payload) => {
     return {type: 'SORT_BREEDS', payload}

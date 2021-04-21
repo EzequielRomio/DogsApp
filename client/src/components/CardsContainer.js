@@ -3,10 +3,11 @@ import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
 
 import {DogCard} from './DogCard.js'; 
-//import {getDogs} from '../actions/index.js';
+import defaultImg from '../images/default.png'
+import { getDogs } from '../actions/index.js';
 
 const setTemperaments = (temps) => {
-    if (!temps || !Array.isArray(temps)) {return 'Chill'};
+    if (!temps || !Array.isArray(temps)) {console.log(temps); return 'Chill'};
     return (temps.map(t => t.name)).join(' ')
 }
 
@@ -33,7 +34,11 @@ const CardsContainer = ({dogs, filtered}) => {
                 return (
                     <div key={dog.id} style={{margin: "20px 350px 20px 350px"}}>
                         <Link to={`/dogs/details/${dog.name}`} >
-                            <DogCard dog={{name: dog.name, image: dog.image.url, temperaments: setTemperaments(dog.temperaments)}} />
+                            <DogCard dog={{
+                                name: dog.name, 
+                                image: (dog.image && dog.image.url) || defaultImg,
+                                temperaments: setTemperaments(dog.temperaments)
+                                }} />
                         </Link>
                     </div>
                 )

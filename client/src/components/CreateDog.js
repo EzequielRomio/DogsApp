@@ -1,6 +1,8 @@
 import React, {useState, useEffect} from 'react';
 import {connect} from 'react-redux';
 
+import {postDog} from '../actions/index.js';
+
 const createTemperamentsCheckBox = (temperamentList, handleChange) => {
     return (
         temperamentList.map(temp => {
@@ -43,15 +45,30 @@ const createRadioInputs = (labelName, handleChange) => {
 }
 
 const validateBody = (inputs) => {
-    const errors = {}
-    if (!inputs.name || inputs.name.length < 2) {
-        errors.name = 'Name must have al least 2 letters!'
-    } 
-    //if (!maxHeight)
+    console.log(inputs, 'soy inputs')
+    const errors = {
+        name: null,
+        height: null,
+        weight: null,
+        temperaments: null,
+    }
+    if (!inputs.name || inputs.name.length < 2) {errors.name = 'Name must have at least 2 letters!'}; 
+    if (!inputs.height) {errors.height = 'Select a Height'};
+    if (!inputs.weight) {errors.weight = 'Select a Weight'};
+    if (!inputs.temperaments) {errors.temperaments  = 'Select or Create at least one temperament!'};
+    console.log(errors, 'estoy adentro de erros')
+    return errors
+}
+
+const hasErrors = (errors) => {
+    for (const k in errors) {
+        if (errors[k]) {return true};
+    }
+    return false;
 }
 
 /*********** Component starts here *************/
-const CreateDog = ({temperamentList}) => {
+const CreateDog = ({temperamentList, postDog}) => {
     
     /****** Local states ******/
     const [inputs, setInputs] = useState({
@@ -63,14 +80,22 @@ const CreateDog = ({temperamentList}) => {
     })
     const [temperamentsChecked, setTemperamentsChecked] = useState({})
     const [customTemperament, setCustomTemperament] = useState([])
-
+    const [errors, setErrors] = useState({})
+    const [submited, setSubmited] = useState(false);
 
     /****** useEffect *******/
     useEffect(() => {
         console.log(customTemperament, 'custom Temperaments')
         console.log(inputs)
+        if (submited && hasErrors(errors)) {
+            setSubmited(false);
+            console.log(errors.valueOf())
+        } else if (submited) {
+            console.log('puedo enviarlo')
+            postDog(inputs)
+        }
     
-    }, [inputs, temperamentsChecked, customTemperament])
+    }, [inputs, temperamentsChecked, customTemperament, errors])
 
 
     /******* Events Handlers ********/
@@ -89,10 +114,12 @@ const CreateDog = ({temperamentList}) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        setSubmited(true);
         setInputs({
             ...inputs,
             temperaments: joinTemperaments(temperamentsChecked, customTemperament)
         })
+        setErrors(validateBody(inputs))
     }
 
     const checkboxChange = (e) => {
@@ -194,4 +221,10 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps)(CreateDog)
+const mapDispatchToProps = (dispatch) => {
+    return {
+        postDog: body => dispatch(postDog(body))
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(CreateDog)

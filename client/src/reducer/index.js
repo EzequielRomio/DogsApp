@@ -73,7 +73,6 @@ const rootReducer = (state = initialState, actions) => {
             };
         
         case 'FILTER_TEMPERAMENTS':
-            console.log('entre a filter temp')
             if (actions.payload === '-') {
                 return {...state, filtered: state.dogs};
             } else {
