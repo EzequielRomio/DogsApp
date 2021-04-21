@@ -10,7 +10,7 @@ const createTemperamentsCheckBox = (temperamentList, handleChange) => {
             <div key={temp.id} style={{margin: '10px', width: '180px'}}>
                 <label>{temp.name}</label>
                     <input
-                        onChange={handleChange}
+                        onChange={(e) => handleChange(e)}
                         value={temp.name}
                         type="checkbox"
                         name={temp.name}
@@ -19,6 +19,13 @@ const createTemperamentsCheckBox = (temperamentList, handleChange) => {
             )
         })   
     )    
+}
+
+const checkTemps = (temperamentsChecked) => {
+    for (const temp in temperamentsChecked) {
+        if (temperamentsChecked[temp]) {console.log(temp); return true}
+    }
+    return false;    
 }
 
 const createRadioInputs = (labelName, handleChange) => {
@@ -44,8 +51,7 @@ const createRadioInputs = (labelName, handleChange) => {
 
 }
 
-const validateBody = (inputs) => {
-    console.log(inputs, 'soy inputs')
+const validateBody = (inputs, temperamentsChecked, customTemperament) => {
     const errors = {
         name: null,
         height: null,
@@ -55,7 +61,9 @@ const validateBody = (inputs) => {
     if (!inputs.name || inputs.name.length < 2) {errors.name = 'Name must have at least 2 letters!'}; 
     if (!inputs.height) {errors.height = 'Select a Height'};
     if (!inputs.weight) {errors.weight = 'Select a Weight'};
-    if (!inputs.temperaments) {errors.temperaments  = 'Select or Create at least one temperament!'};
+    if (!inputs.temperaments && !customTemperament && !checkTemps(temperamentsChecked)) {
+        errors.temperaments  = 'Select or Create at least one temperament!'
+    };
     return errors
 }
 
@@ -79,9 +87,10 @@ const CreateDog = ({temperamentList, postDog, setPostNotOk, postOk}) => {
     })
     const [temperamentsChecked, setTemperamentsChecked] = useState({})
     const [customTemperament, setCustomTemperament] = useState([])
+    const [joinedTemperaments, setJoinedTemperaments] = useState('')
     const [errors, setErrors] = useState({})
     const [submited, setSubmited] = useState(false);
-    const [posted, setPosted] = useState(false);
+
 
     /****** useEffect *******/
     useEffect(() => {
@@ -89,11 +98,17 @@ const CreateDog = ({temperamentList, postDog, setPostNotOk, postOk}) => {
             setSubmited(false);
         } else if (submited) {
             postDog(inputs);
-            setSubmited(false);
-            setPosted(true);
-        }    
-    }, [inputs, temperamentsChecked, customTemperament, errors])
+        }
+        setSubmited(false);    
+    }, [inputs])
 
+
+    useEffect(()=> {
+        setJoinedTemperaments(joinTemperaments(temperamentsChecked, customTemperament));
+        console.log(joinedTemperaments)
+    }, [temperamentsChecked, customTemperament])
+
+    
     useEffect(() => {
         if (postOk) {
             console.log(inputs, ' entre al postOk')
@@ -121,9 +136,9 @@ const CreateDog = ({temperamentList, postDog, setPostNotOk, postOk}) => {
         setSubmited(true);
         setInputs({
             ...inputs,
-            temperaments: joinTemperaments(temperamentsChecked, customTemperament)
+            temperaments: joinedTemperaments //joinTemperaments(temperamentsChecked, customTemperament)
         })
-        setErrors(validateBody(inputs))
+        setErrors(validateBody(inputs, temperamentsChecked, customTemperament))
     }
 
     const checkboxChange = (e) => {
@@ -138,7 +153,7 @@ const CreateDog = ({temperamentList, postDog, setPostNotOk, postOk}) => {
     const joinTemperaments = (temperamentsChecked, customTemperament) => {
         const result = [];
         for (const temp in temperamentsChecked) {
-            if (temperamentsChecked[temp]) {result.push(temp)}
+            if (temperamentsChecked[temp]) {console.log(temp); result.push(temp)}
         }
         return result.concat(customTemperament).join(', ')
     }
