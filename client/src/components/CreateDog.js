@@ -19,6 +19,29 @@ const createTemperamentsCheckBox = (temperamentList, handleChange) => {
     )    
 }
 
+const createRadioInputs = (labelName, handleChange) => {
+    const weights = ['1 - 10', '10 - 25', '25 - 40', '40 - 55', '55 - 70', '70 - 90', '90 - 120'];
+    const heights = ['5 - 20', '20 - 40', '40 - 60', '60 - 100', '100 - 140', '140 - 180', '180 - 220']
+
+    let label = null;
+
+    labelName === 'weight' ? label = weights : label = heights
+
+    return (
+        <div>
+            {label.map((option, ix) => {
+                return (
+                    <div key={ix}>
+                        <label>{option} {labelName === 'weight' ? 'kg' : 'cm'}</label>
+                        <input value={option} onChange={handleChange} type="radio" name={labelName}></input>
+                    </div>
+                )    
+            })}
+        </div>
+    )
+
+}
+
 const validateBody = (inputs) => {
     const errors = {}
     if (!inputs.name || inputs.name.length < 2) {
@@ -33,11 +56,9 @@ const CreateDog = ({temperamentList}) => {
     /****** Local states ******/
     const [inputs, setInputs] = useState({
         name: '',
-        maxHeight: '' || '0',
-        minHeight: '' || '0',
-        maxWeight: '' || '0',
-        minWeight: '' || '0',
-        life_span: '' || '0',
+        height: '',
+        weight: '',
+        life_span: '',
         temperaments: ''
     })
     const [temperamentsChecked, setTemperamentsChecked] = useState({})
@@ -116,7 +137,7 @@ const CreateDog = ({temperamentList}) => {
             <form onSubmit={handleSubmit}>
                 <h2>Create New Dog</h2>
                 <div>
-                    <label>Name</label>
+                    <h4>Name</h4>
                     <input
                         value={inputs.name}
                         onChange={handleChange}
@@ -125,43 +146,16 @@ const CreateDog = ({temperamentList}) => {
                     ></input>
                 </div>
                 <div>
-                    <label>Max Height</label>
-                    <input
-                        value={inputs.maxHeight}
-                        onChange={handleChange}
-                        type="number"
-                        name="maxHeight"
-                    ></input>
+                    <h4>Height</h4>
+                    {createRadioInputs('height', handleChange)}
+                </div>
+
+                <div>
+                    <h4>Weight</h4>
+                    {createRadioInputs('weight', handleChange)}
                 </div>
                 <div>
-                    <label>Min Height</label>
-                    <input
-                        value={inputs.minHeight}
-                        onChange={handleChange}
-                        type="text"
-                        name="minHeight"
-                    ></input>
-                </div>
-                <div>
-                    <label>Max Weight</label>
-                    <input
-                        value={inputs.maxWeight}
-                        onChange={handleChange}
-                        type="text"
-                        name="maxWeight"
-                    ></input>
-                </div>
-                <div>
-                    <label>Min Weight</label>
-                    <input
-                        value={inputs.minWeight}
-                        onChange={handleChange}
-                        type="text"
-                        name="minWeight"
-                    ></input>
-                </div>
-                <div>
-                    <label>Life Span</label>
+                    <h4>Life Span</h4>
                     <input
                         value={inputs.life_span}
                         onChange={handleChange}
@@ -187,7 +181,7 @@ const CreateDog = ({temperamentList}) => {
                     <label>Insert a new temperament, or temperaments separated by "-"</label>
                     <input type="text" name="newTemperament" onChange={handleNewTemperament} placeholder="Adventurous-Active-Fun-loving"></input>
                 </div>
-                <input type="submit" value="Send Data"></input>
+                <input type="submit" value="Send"></input>
             </form>
         </div>
     )

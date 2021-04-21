@@ -4,6 +4,7 @@ export const getDogs = () => {
     return function (dispatch) {
         axios.get("http://localhost:3001/dogs", {responseType: 'json'})
             .then(res => {
+                console.log(res.data);
                 return res.data.map(dog => {return {...dog, weight: dog.weight.metric}})
             }).then(dogs => {return dispatch({ type: "GET_DOGS", payload: dogs })})
     }
