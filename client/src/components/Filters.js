@@ -1,10 +1,13 @@
 import React from 'react';
 import {connect} from 'react-redux';
 
-import {filterBreeds, filterTemperaments} from '../actions/index.js';
+import {filterBreeds, filterTemperaments, getTemperaments} from '../actions/index.js';
 
 
-const Filters = ({filterLabel, temperaments, breeds, filterBreeds, filterTemperaments}) => {
+const Filters = ({filterLabel, temperaments, breeds, filterBreeds, filterTemperaments, getTemperaments}) => {
+    
+    filterLabel === 'Temperament' && temperaments.length === 0 && getTemperaments()
+
     let temperamentsNames = null;
     if (filterLabel === 'Temperament') {
         temperamentsNames = temperaments.map(t => {
@@ -50,7 +53,8 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
     return {
         filterBreeds: breedName => dispatch(filterBreeds(breedName)),
-        filterTemperaments: tempName => dispatch(filterTemperaments(tempName))
+        filterTemperaments: tempName => dispatch(filterTemperaments(tempName)),
+        getTemperaments: () => dispatch(getTemperaments())
     };
 }
 

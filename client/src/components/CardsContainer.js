@@ -7,7 +7,7 @@ import defaultImg from '../images/default.png'
 import { getDogs } from '../actions/index.js';
 
 const setTemperaments = (temps) => {
-    if (!temps || !Array.isArray(temps)) {console.log(temps); return 'Chill'};
+    if (!temps || !Array.isArray(temps)) {return 'Chill'};
     return (temps.map(t => t.name)).join(' ')
 }
 
@@ -24,7 +24,9 @@ const setTemperaments = (temps) => {
 //     })
 // }
 
-const CardsContainer = ({dogs, filtered}) => {
+const CardsContainer = ({dogs, filtered, getDogs}) => {
+    dogs.length === 0 && getDogs();
+
     let dogsToDisplay = null;
     filtered.length > 1 ? dogsToDisplay = filtered : dogsToDisplay = dogs;
 
@@ -57,4 +59,4 @@ function mapStateToProps(state) {
 }
 
 
-export default connect(mapStateToProps)(CardsContainer);
+export default connect(mapStateToProps, {getDogs})(CardsContainer);
