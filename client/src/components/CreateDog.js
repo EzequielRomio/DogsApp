@@ -113,22 +113,22 @@ const CreateDog = ({temperamentList}) => {
     }
 
     const parseNewTemperament = (newTemp) => {
-        //if (newTemp.includes(' ')) {alert('Only Letters or - !')}
+        newTemp = filterInvalidCharts(newTemp);
         const temperaments = newTemp.split('-');
         return (
             temperaments
-            .filter(temperament => temperament.length > 0 && validateTemperament(temperament))
+            .filter(temperament => temperament.length > 0)
             .map(temperament => temperament.charAt(0).toUpperCase() + temperament.slice(1))
         )
     }
 
-    const validateTemperament = (temperament) => {
-        const letters = temperament.split('');
-        let isValid = true;
-        for (const ch of letters) {
-            if (ch.toUpperCase() === ch.toLowerCase()) {isValid = false; break}
+    const filterInvalidCharts = (txt) => {
+        let result = '';
+        for (let i=0; i < txt.length; i++) {
+            let ch = txt[i];
+            if (ch.toUpperCase() !== ch.toLowerCase() || ch === '-') {result += ch}
         }
-        return isValid;
+        return result;
     }
 
 
