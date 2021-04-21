@@ -4,22 +4,34 @@ export const getDogs = () => {
     return function (dispatch) {
         axios.get("http://localhost:3001/dogs", {responseType: 'json'})
             .then(res => {
-                console.log(res.data);
-                return res.data.map(dog => {return {...dog, weight: dog.weight.metric}})
-            }).then(dogs => {return dispatch({ type: "GET_DOGS", payload: dogs })})
+                if (res.status === 200) {
+                    return res.data.map(dog => {return {...dog, weight: dog.weight.metric}})
+                } else {alert('Server Error Ocurred'); return []};
+            })
+            .then(dogs => {return dispatch({ type: "GET_DOGS", payload: dogs })})
+            .catch((err) => {alert('An Error Ocurred trying to connect Server'); console.log(err)})
     }
 }
 
 export const postDog = (payload) => {
     return function (dispatch) {
-        const body = {...payload, weight: {metric: payload.weight}, height: {metric: payload.height}, temperament: payload.temperaments}
-        console.log(body, 'soy el body')
+        const body = {
+            ...payload, 
+            weight: {metric: payload.weight}, 
+            height: {metric: payload.height}, 
+            temperament: payload.temperaments
+        }
         axios.post("http://localhost:3001/dog", body, {responseType: 'json'})
             .then(res => {
-                console.log(res, res.data)
-                const newDog = {...payload, id: res.data.id}
-                return dispatch({type: 'ADD_DOG', payload: newDog})
+                console.log(res);
+                if (res.status === 200) {
+                    const newDog = {...payload, id: res.data.id}
+                    return dispatch({type: 'ADD_DOG', payload: newDog})
+                } else if (res.status === 400) {
+                    alert(res.data)
+                }
             })
+            .catch(err => {console.log(err); alert('This Dog Already Exist!')})
     }
 }
 
@@ -47,6 +59,10 @@ export const filterTemperaments = (payload) => {
 
 export const sortByBreeds = (payload) => {
     return {type: 'SORT_BREEDS', payload}
+}
+
+export const setPostNotOk = () => {
+    return {type: 'POST_NOT_OK'}
 }
 
 export const sortByWeights = (payload) => {

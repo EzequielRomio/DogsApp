@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {connect} from 'react-redux';
 
-import {postDog} from '../actions/index.js';
+import {postDog, setPostNotOk} from '../actions/index.js';
 
 const createTemperamentsCheckBox = (temperamentList, handleChange) => {
     return (
@@ -56,20 +56,19 @@ const validateBody = (inputs) => {
     if (!inputs.height) {errors.height = 'Select a Height'};
     if (!inputs.weight) {errors.weight = 'Select a Weight'};
     if (!inputs.temperaments) {errors.temperaments  = 'Select or Create at least one temperament!'};
-    console.log(errors, 'estoy adentro de erros')
     return errors
 }
 
 const hasErrors = (errors) => {
     for (const k in errors) {
-        if (errors[k]) {return true};
+        if (errors[k]) {console.log(errors[k]); return true};
     }
     return false;
 }
 
 /*********** Component starts here *************/
-const CreateDog = ({temperamentList, postDog}) => {
-    
+const CreateDog = ({temperamentList, postDog, setPostNotOk, postOk}) => {
+    console.log(postOk, 'soy postOk')
     /****** Local states ******/
     const [inputs, setInputs] = useState({
         name: '',
@@ -82,20 +81,25 @@ const CreateDog = ({temperamentList, postDog}) => {
     const [customTemperament, setCustomTemperament] = useState([])
     const [errors, setErrors] = useState({})
     const [submited, setSubmited] = useState(false);
+    const [posted, setPosted] = useState(false);
 
     /****** useEffect *******/
     useEffect(() => {
-        console.log(customTemperament, 'custom Temperaments')
-        console.log(inputs)
         if (submited && hasErrors(errors)) {
             setSubmited(false);
-            console.log(errors.valueOf())
         } else if (submited) {
-            console.log('puedo enviarlo')
-            postDog(inputs)
-        }
-    
+            postDog(inputs);
+            setSubmited(false);
+            setPosted(true);
+        }    
     }, [inputs, temperamentsChecked, customTemperament, errors])
+
+    useEffect(() => {
+        if (postOk) {
+            console.log(inputs, ' entre al postOk')
+            setPostNotOk()
+        }
+    })
 
 
     /******* Events Handlers ********/
@@ -216,14 +220,16 @@ const CreateDog = ({temperamentList, postDog}) => {
 
 const mapStateToProps = (state) => {
     return {
-        temperamentList: state.temperaments 
+        temperamentList: state.temperaments, 
         // temperamentList is an alias to prevent overwriting temperaments inputs property
+        postOk: state.postOk
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        postDog: body => dispatch(postDog(body))
+        postDog: body => dispatch(postDog(body)),
+        setPostNotOk: () => dispatch(setPostNotOk)
     }
 }
 
