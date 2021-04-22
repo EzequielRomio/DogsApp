@@ -24,7 +24,8 @@ const setTemperaments = (temps) => {
 //     })
 // }
 
-const CardsContainer = ({dogs, filtered, getDogs}) => {
+const CardsContainer = ({dogs, filtered, getDogs, match}) => {
+    console.log(match)
     dogs.length === 0 && getDogs();
 
     let dogsToDisplay = null;
@@ -36,7 +37,7 @@ const CardsContainer = ({dogs, filtered, getDogs}) => {
                 return (
                     <div key={dog.id} style={{margin: "20px 350px 20px 350px"}}>
                         <Link to={`/dogs/details/${dog.name}`} >
-                            <DogCard dog={{
+                            <DogCard match={match} dog={{
                                 name: dog.name, 
                                 image: (dog.image && dog.image.url) || defaultImg,
                                 temperaments: setTemperaments(dog.temperaments)

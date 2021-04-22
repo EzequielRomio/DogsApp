@@ -1,8 +1,9 @@
 import axios from 'axios';
-import React from 'react';
+import React, {useState} from 'react';
 
 import {Image} from './Image';
 import dog_not_found from '../images/dog_not_found.jpg'
+import defaultImg from '../images/default.png'
 
 const setDetails = (dog) => {
     return (
@@ -16,6 +17,12 @@ const setDetails = (dog) => {
         </div>
     )
 }
+
+const setTemperaments = (temps) => {
+    if (!temps || !Array.isArray(temps)) {return 'Chill'};
+    return (temps.map(t => t.name)).join(' ')
+}
+
 
 const displayDog = (dog, fullData) => {
     return (
@@ -42,32 +49,42 @@ const dogNotFound = () => {
     )
 }
  
-const DogCard = (props) => {
-    console.log(props);
-    //const {dog, fullData} = props
-    // if (!dog) {
-    //     axios.get(`http://localhost:3001/dogs?name=${match.params.breed}`, {responseType: 'json'})
-    //         .then(res => {
-    //             if (res.status === 200) {
-    //                 const dog = res.data
-    //                 return {...dog, weight: dog.weight.metric, height: dog.height.metric}
-    //             } else {
-    //                 return res.status
-    //             }
-    //         })
-    //         .then(dog => {
-    //             if (typeof dog === 'number') {
-    //                 return dogNotFound(match.params.breed)
-    //             } else {
-    //                 return displayDog(dog, fullData=true)
-    //             }
-    //         })
-    // } else {
-    //     return displayDog(dog, fullData=false)
-    // }
+const DogCard = ({dog, match}) => {
+    const [dogsFound, setDogsFound] = useState([])
+    const [error, setError] = useState(false);
+
+    if (!dog && dogsFound.length === 0 && !error) {
+        axios.get(`http://localhost:3001/dogs?name=${match.params.breed}`, {responseType: 'json'})
+            .then(res => {
+                if (res.status === 200) {
+                    const dogs = res.data.map(dog => {
+                        return {...dog,
+                            weight: dog.weight.metric,
+                            height: dog.height.metric,
+                            image: (dog.image && dog.image.url) || defaultImg,
+                            temperaments: setTemperaments(dog.temperaments)
+                        }
+                    })
+                    console.log(dogs)
+                    return dogs
+                }
+            })
+            .then(dogs => {
+                setDogsFound(dogs)
+            })
+            .catch(err => {
+                console.log(err)
+                setError(true);
+            })
+    }
     return (
         <div>
-            hola!
+            {
+                (dog && displayDog(dog, false)) ||
+                (dogsFound.length > 0 && dogsFound.map(dog => displayDog(dog, true))) ||
+                (error && dogNotFound()) ||
+                'Loading...'
+            }
         </div>
     )
 }

@@ -52,7 +52,7 @@ function App() {
       
       <Route
         path='/dogs/details/:breed'
-        render={() => <DogCard fullData={true}/>}  
+        component={DogCard} 
       />
 
       <Route 
