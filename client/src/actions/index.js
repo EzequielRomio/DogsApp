@@ -10,7 +10,7 @@ export const getDogs = () => {
                 } else {alert('Server Error Ocurred'); return []};
             })
             .then(dogs => {return dispatch({ type: "GET_DOGS", payload: dogs })})
-            .catch((err) => {alert('An Error Ocurred trying to connect Server'); console.log(err)})
+            .catch((err) => {console.log(err.response.data)})
     }
 }
 
@@ -24,15 +24,17 @@ export const postDog = (payload) => {
         }
         axios.post("http://localhost:3001/dog", body, {responseType: 'json'})
             .then(res => {
-                console.log(res);
                 if (res.status === 200) {
                     const newDog = {...payload, id: res.data.id}
                     return dispatch({type: 'ADD_DOG', payload: newDog})
-                } else if (res.status === 400) {
-                    alert(res.data)
                 }
             })
-            .catch(err => {console.log(err); alert('This Dog Already Exist!')})
+            .catch(err => {
+                console.log(err.response.data);
+                const error = err.response.data 
+                if (error.status === 400) {return dispatch({type: 'HANDLE_400', payload: error.message})};
+                if (error.status === 409) {console.log('entre al 409 del actions');return dispatch({type: 'HANDLE_409', payload: error.message})};
+            })
     }
 }
 
@@ -68,6 +70,10 @@ export const setPostNotOk = () => {
 
 export const restartNewDogId = () => {
     return {type: 'RESTART_NEW_DOG_ID'}
+}
+
+export const resetErrors = () => {
+    return {type: 'RESET_ERRORS'}
 }
 
 export const sortByWeights = (payload) => {

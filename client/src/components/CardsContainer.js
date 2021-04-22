@@ -4,7 +4,7 @@ import {Link} from 'react-router-dom';
 
 import DogCard from './DogCard.js'; 
 import defaultImg from '../images/default.png'
-import { getDogs } from '../actions/index.js';
+import { filterBreeds, getDogs } from '../actions/index.js';
 
 const setTemperaments = (temps) => {
     if (!temps || !Array.isArray(temps)) {return 'Chill'};
@@ -25,11 +25,10 @@ const setTemperaments = (temps) => {
 // }
 
 const CardsContainer = ({dogs, filtered, getDogs, match}) => {
-    dogs.length === 0 && getDogs();
+    (dogs.length === 0 || dogs.length === 1) && getDogs();
 
     let dogsToDisplay = null;
     filtered.length > 0 ? dogsToDisplay = filtered : dogsToDisplay = dogs;
-
     return (
         <div style={{display: "flex", alignContent: "space-between", flexDirection: "column"}}>
             {dogsToDisplay.map(dog => {console.log(dog)

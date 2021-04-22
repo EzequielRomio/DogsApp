@@ -5,6 +5,7 @@ const initialState = {
     filtered: [],
     postOk: false,
     newDogId: 0,
+    errors: {400: false, 409: false}
 }
 
 const sortTemperaments = (temperaments) => {
@@ -51,6 +52,7 @@ const searchTemperament = (dog, temperament) => {
 
 
 const rootReducer = (state = initialState, actions) => {
+    console.log(actions)
     switch(actions.type) {
         case 'GET_DOGS':
             return {...state, dogs: actions.payload, breeds: actions.payload.map(dog => dog.name)};
@@ -59,11 +61,17 @@ const rootReducer = (state = initialState, actions) => {
             return {...state, temperaments: sortTemperaments(actions.payload)};
 
         case 'POST_NOT_OK': {
-            return {...state, postOk: false}
+            return {...state, postOk: false};
         }
         case 'RESTART_NEW_DOG_ID':
-            return {...state, newDogId: 0}
-
+            return {...state, newDogId: 0};
+        case 'HANDLE_400':
+            return {...state, errors: {400: true, 409: false}}
+        case 'HANDLE_409':
+            console.log('entre al reducer del 409')
+            return {...state, errors: {409: true, 400: false}}
+        case 'RESET_ERRORS':
+            return {...state, errors: {400: false, 409: false}}
         case 'ADD_DOG':
             return {...state, dogs: state.dogs.concat(actions.payload), postOk: true, newDogId: actions.payload.id};
 

@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import {connect} from 'react-redux';
 import {useHistory} from 'react-router-dom';
 
-import {postDog, getTemperaments, restartNewDogId} from '../actions/index.js';
+import {postDog, getTemperaments, restartNewDogId, resetErrors} from '../actions/index.js';
 
 const createTemperamentsCheckBox = (temperamentList, handleChange) => {
     return (
@@ -76,7 +76,7 @@ const hasErrors = (errors) => {
 }
 
 /*********** Component starts here *************/
-const CreateDog = ({temperamentList, postDog, getTemperaments, newDogId, restartNewDogId}) => {
+const CreateDog = ({temperamentList, postDog, getTemperaments, newDogId, restartNewDogId, postErrors, resetErrors}) => {
     temperamentList.length === 0 && getTemperaments(); 
     /****** Local states ******/
     const [inputs, setInputs] = useState({
@@ -111,10 +111,19 @@ const CreateDog = ({temperamentList, postDog, getTemperaments, newDogId, restart
 
     
     useEffect(() => {
+        console.log(postErrors)
         if (newDogId !== 0) {
             const id = newDogId
             restartNewDogId()
             history.push(`/dogs/details/${id}`)
+        } else if (postErrors[409]) {
+            console.log('This dog already exist jdksajdlas')
+            alert('This dog already exist, insert a diferent Name')
+            resetErrors()
+        } else if (postErrors[400]) {
+            console.log('Bad body request!')
+            alert('Oops! An error ocurred')
+            window.location.reload()
         }
     })
 
@@ -239,7 +248,8 @@ const mapStateToProps = (state) => {
     return {
         temperamentList: state.temperaments, 
         // temperamentList is an alias to prevent overwriting temperaments inputs property
-        newDogId: state.newDogId
+        newDogId: state.newDogId,
+        postErrors: state.errors
     }
 }
 
@@ -247,7 +257,8 @@ const mapDispatchToProps = (dispatch) => {
     return {
         postDog: body => dispatch(postDog(body)),
         getTemperaments: () => dispatch(getTemperaments()),
-        restartNewDogId: () => dispatch(restartNewDogId())
+        restartNewDogId: () => dispatch(restartNewDogId()),
+        resetErrors: () => dispatch(resetErrors())
     }
 }
 

@@ -68,7 +68,7 @@ const DogCard = ({dog, match}) => {
                 setDogFound(dog)
             })
             .catch(err => {
-                console.log(err)
+                console.log(err.response.data)
                 setError(true);
             })
     }
