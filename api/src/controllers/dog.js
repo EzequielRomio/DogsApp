@@ -115,7 +115,7 @@ async function addDog(req, res, next) {
             next({status: 400, message: 'Important fields missing'})
         }
     } catch {
-        next({status: 400, message: `This dog already exist`})
+        next({status: 409, message: `This dog already exist`})
     }
 }
 
