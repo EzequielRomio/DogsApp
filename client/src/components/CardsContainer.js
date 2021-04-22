@@ -28,7 +28,7 @@ const CardsContainer = ({dogs, filtered, getDogs, match}) => {
     dogs.length === 0 && getDogs();
 
     let dogsToDisplay = null;
-    filtered.length > 1 ? dogsToDisplay = filtered : dogsToDisplay = dogs;
+    filtered.length > 0 ? dogsToDisplay = filtered : dogsToDisplay = dogs;
 
     return (
         <div style={{display: "flex", alignContent: "space-between", flexDirection: "column"}}>
