@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import {connect} from 'react-redux';
 import {useHistory} from 'react-router-dom';
 
-import {postDog, setPostNotOk, getTemperaments} from '../actions/index.js';
+import {postDog, getTemperaments, restartNewDogId} from '../actions/index.js';
 
 const createTemperamentsCheckBox = (temperamentList, handleChange) => {
     return (
@@ -76,7 +76,7 @@ const hasErrors = (errors) => {
 }
 
 /*********** Component starts here *************/
-const CreateDog = ({temperamentList, postDog, setPostNotOk, postOk, getTemperaments}) => {
+const CreateDog = ({temperamentList, postDog, getTemperaments, newDogId, restartNewDogId}) => {
     temperamentList.length === 0 && getTemperaments(); 
     /****** Local states ******/
     const [inputs, setInputs] = useState({
@@ -111,9 +111,10 @@ const CreateDog = ({temperamentList, postDog, setPostNotOk, postOk, getTemperame
 
     
     useEffect(() => {
-        if (postOk) {
-            setPostNotOk()
-            history.push(`/dogs/details/${inputs.name}`)
+        if (newDogId !== 0) {
+            const id = newDogId
+            restartNewDogId()
+            history.push(`/dogs/details/${id}`)
         }
     })
 
@@ -238,15 +239,15 @@ const mapStateToProps = (state) => {
     return {
         temperamentList: state.temperaments, 
         // temperamentList is an alias to prevent overwriting temperaments inputs property
-        postOk: state.postOk
+        newDogId: state.newDogId
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
         postDog: body => dispatch(postDog(body)),
-        setPostNotOk: () => dispatch(setPostNotOk()),
-        getTemperaments: () => dispatch(getTemperaments())
+        getTemperaments: () => dispatch(getTemperaments()),
+        restartNewDogId: () => dispatch(restartNewDogId())
     }
 }
 

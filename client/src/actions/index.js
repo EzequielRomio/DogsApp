@@ -66,6 +66,10 @@ export const setPostNotOk = () => {
     return {type: 'POST_NOT_OK'}
 }
 
+export const restartNewDogId = () => {
+    return {type: 'RESTART_NEW_DOG_ID'}
+}
+
 export const sortByWeights = (payload) => {
     return {type: 'SORT_WEIGHTS', payload}
 }

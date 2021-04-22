@@ -50,27 +50,22 @@ const dogNotFound = () => {
 }
  
 const DogCard = ({dog, match}) => {
-    const [dogsFound, setDogsFound] = useState([])
+    const [dogFound, setDogFound] = useState({})
     const [error, setError] = useState(false);
 
-    if (!dog && dogsFound.length === 0 && !error) {
-        axios.get(`http://localhost:3001/dogs?name=${match.params.breed}`, {responseType: 'json'})
+    if (!dog && Object.keys(dogFound).length === 0 && !error) {
+        axios.get(`http://localhost:3001/dogs/${match.params.id}`, {responseType: 'json'})
             .then(res => {
-                if (res.status === 200) {
-                    const dogs = res.data.map(dog => {
-                        return {...dog,
-                            weight: dog.weight.metric,
-                            height: dog.height.metric,
-                            image: (dog.image && dog.image.url) || defaultImg,
-                            temperaments: setTemperaments(dog.temperaments)
-                        }
-                    })
-                    console.log(dogs)
-                    return dogs
+                const dog = res.data
+                return {...dog,
+                    weight: dog.weight.metric,
+                    height: dog.height.metric,
+                    image: (dog.image && dog.image.url) || defaultImg,
+                    temperaments: setTemperaments(dog.temperaments)
                 }
             })
-            .then(dogs => {
-                setDogsFound(dogs)
+            .then(dog => {
+                setDogFound(dog)
             })
             .catch(err => {
                 console.log(err)
@@ -81,7 +76,7 @@ const DogCard = ({dog, match}) => {
         <div>
             {
                 (dog && displayDog(dog, false)) ||
-                (dogsFound.length > 0 && dogsFound.map(dog => displayDog(dog, true))) ||
+                (Object.keys(dogFound).length > 0 && displayDog(dogFound, true)) ||
                 (error && dogNotFound()) ||
                 'Loading...'
             }

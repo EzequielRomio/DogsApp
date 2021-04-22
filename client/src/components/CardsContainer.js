@@ -32,10 +32,10 @@ const CardsContainer = ({dogs, filtered, getDogs, match}) => {
 
     return (
         <div style={{display: "flex", alignContent: "space-between", flexDirection: "column"}}>
-            {dogsToDisplay.map(dog => {
+            {dogsToDisplay.map(dog => {console.log(dog)
                 return (
                     <div key={dog.id} style={{margin: "20px 350px 20px 350px"}}>
-                        <Link to={`/dogs/details/${dog.name}`} >
+                        <Link to={`/dogs/details/${dog.id}`} >
                             <DogCard match={match} dog={{
                                 name: dog.name, 
                                 image: (dog.image && dog.image.url) || defaultImg,

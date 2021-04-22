@@ -3,7 +3,8 @@ const initialState = {
     temperaments: [],
     dogsToDisplay: [],
     filtered: [],
-    postOk: false
+    postOk: false,
+    newDogId: 0,
 }
 
 const sortTemperaments = (temperaments) => {
@@ -60,9 +61,11 @@ const rootReducer = (state = initialState, actions) => {
         case 'POST_NOT_OK': {
             return {...state, postOk: false}
         }
-        
+        case 'RESTART_NEW_DOG_ID':
+            return {...state, newDogId: 0}
+
         case 'ADD_DOG':
-            return {...state, dogs: state.dogs.concat(actions.payload), postOk: true};
+            return {...state, dogs: state.dogs.concat(actions.payload), postOk: true, newDogId: actions.payload.id};
 
         case 'SORT_BREEDS':
             return {...state, filtered: sortBreeds(state.dogs, actions.payload)};

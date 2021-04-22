@@ -51,7 +51,7 @@ function App() {
       />
       
       <Route
-        path='/dogs/details/:breed'
+        path='/dogs/details/:id'
         component={DogCard} 
       />
 
