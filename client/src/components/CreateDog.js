@@ -1,7 +1,8 @@
 import React, {useState, useEffect} from 'react';
 import {connect} from 'react-redux';
+import {useHistory} from 'react-router-dom';
 
-import {postDog, setPostNotOk} from '../actions/index.js';
+import {postDog, setPostNotOk, getTemperaments} from '../actions/index.js';
 
 const createTemperamentsCheckBox = (temperamentList, handleChange) => {
     return (
@@ -75,8 +76,8 @@ const hasErrors = (errors) => {
 }
 
 /*********** Component starts here *************/
-const CreateDog = ({temperamentList, postDog, setPostNotOk, postOk}) => {
-    console.log(postOk, 'soy postOk')
+const CreateDog = ({temperamentList, postDog, setPostNotOk, postOk, getTemperaments}) => {
+    temperamentList.length === 0 && getTemperaments(); 
     /****** Local states ******/
     const [inputs, setInputs] = useState({
         name: '',
@@ -90,7 +91,7 @@ const CreateDog = ({temperamentList, postDog, setPostNotOk, postOk}) => {
     const [joinedTemperaments, setJoinedTemperaments] = useState('')
     const [errors, setErrors] = useState({})
     const [submited, setSubmited] = useState(false);
-
+    const history = useHistory()
 
     /****** useEffect *******/
     useEffect(() => {
@@ -111,8 +112,8 @@ const CreateDog = ({temperamentList, postDog, setPostNotOk, postOk}) => {
     
     useEffect(() => {
         if (postOk) {
-            console.log(inputs, ' entre al postOk')
             setPostNotOk()
+            history.push(`/dogs/details/${inputs.name}`)
         }
     })
 
@@ -244,7 +245,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         postDog: body => dispatch(postDog(body)),
-        setPostNotOk: () => dispatch(setPostNotOk)
+        setPostNotOk: () => dispatch(setPostNotOk()),
+        getTemperaments: () => dispatch(getTemperaments())
     }
 }
 

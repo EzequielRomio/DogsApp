@@ -25,7 +25,6 @@ const setTemperaments = (temps) => {
 // }
 
 const CardsContainer = ({dogs, filtered, getDogs, match}) => {
-    console.log(match)
     dogs.length === 0 && getDogs();
 
     let dogsToDisplay = null;

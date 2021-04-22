@@ -9,9 +9,9 @@ const setDetails = (dog) => {
     return (
         <div>
             <h5>Height: </h5>
-            <p>{dog.height}</p>
+            <p>{dog.height} cm</p>
             <h5>Weight: </h5>
-            <p>{dog.weight}</p>
+            <p>{dog.weight} kg</p>
             <h5>Life Span: </h5>
             <p>{dog.life_span}</p>
         </div>
