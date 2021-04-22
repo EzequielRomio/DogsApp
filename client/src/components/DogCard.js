@@ -1,6 +1,8 @@
+import axios from 'axios';
 import React from 'react';
 
 import {Image} from './Image';
+import dog_not_found from '../images/dog_not_found.jpg'
 
 const setDetails = (dog) => {
     return (
@@ -15,7 +17,7 @@ const setDetails = (dog) => {
     )
 }
 
-export const DogCard = ({dog, fullData}) => {
+const displayDog = (dog, fullData) => {
     return (
         <div style={{border: "2px solid", borderColor: "black"}}>
             <div>
@@ -28,4 +30,46 @@ export const DogCard = ({dog, fullData}) => {
             <Image imgToDisplay={dog.image} altDescription={'Dog´s breed'} />
         </div>
     )
+
 }
+
+const dogNotFound = () => {
+    return (
+        <div>
+            <h1>Dog not found!</h1>
+            <Image imgToDisplay={dog_not_found} imgWidth="651" imgHeight="406"/>
+        </div>
+    )
+}
+ 
+const DogCard = (props) => {
+    console.log(props);
+    //const {dog, fullData} = props
+    // if (!dog) {
+    //     axios.get(`http://localhost:3001/dogs?name=${match.params.breed}`, {responseType: 'json'})
+    //         .then(res => {
+    //             if (res.status === 200) {
+    //                 const dog = res.data
+    //                 return {...dog, weight: dog.weight.metric, height: dog.height.metric}
+    //             } else {
+    //                 return res.status
+    //             }
+    //         })
+    //         .then(dog => {
+    //             if (typeof dog === 'number') {
+    //                 return dogNotFound(match.params.breed)
+    //             } else {
+    //                 return displayDog(dog, fullData=true)
+    //             }
+    //         })
+    // } else {
+    //     return displayDog(dog, fullData=false)
+    // }
+    return (
+        <div>
+            hola!
+        </div>
+    )
+}
+
+export default DogCard;

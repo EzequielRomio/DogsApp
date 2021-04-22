@@ -2,7 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
 
-import {DogCard} from './DogCard.js'; 
+import DogCard from './DogCard.js'; 
 import defaultImg from '../images/default.png'
 import { getDogs } from '../actions/index.js';
 
