@@ -14,16 +14,16 @@ const setTemperaments = (temps) => {
 
 const getPaginate = (dogsToDisplay, handlePaginate) => {
     let totalPages = Math.floor(dogsToDisplay.length / 8) // corregir el resto %
-    const paginateButtons = [];
+    const paginateButtons = []; 
     for (let i=1; i < totalPages; i++) {
-        paginateButtons.push(i)
+        paginateButtons.push(i) 
     }
     return (
         <div>
             {paginateButtons.map(page => {
                 return (
                     <button key={page} onClick={(e) => handlePaginate(e)} value={page}>{page}</button>
-                )
+                ) 
             })}
         </div>
     )
