@@ -52,7 +52,6 @@ const searchTemperament = (dog, temperament) => {
 
 
 const rootReducer = (state = initialState, actions) => {
-    console.log(actions)
     switch(actions.type) {
         case 'GET_DOGS':
             return {...state, dogs: actions.payload, breeds: actions.payload.map(dog => dog.name)};

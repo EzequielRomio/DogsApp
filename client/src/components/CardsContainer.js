@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
 
@@ -35,9 +35,18 @@ const CardsContainer = ({dogs, filtered, getDogs, match}) => {
 
     let dogsToDisplay = null;
     filtered.length > 0 ? dogsToDisplay = filtered : dogsToDisplay = dogs;
+
+    const [index, setIndex] = useState(0);
+
+    const handlePaginate = (e) => {
+        e.preventDefault();
+        const targetIndex = (e.target.value - 1) * 8
+        setIndex(targetIndex)
+    }
+    
     return (
         <div style={{display: "flex", alignContent: "space-between", flexDirection: "column"}}>
-            {dogsToDisplay.map(dog => {console.log(dog)
+            {[...dogsToDisplay].splice(index, 8).map(dog => {
                 return (
                     <div key={dog.id} style={{margin: "20px 350px 20px 350px"}}>
                         <Link to={`/dogs/details/${dog.id}`} >
@@ -51,7 +60,7 @@ const CardsContainer = ({dogs, filtered, getDogs, match}) => {
                 )
             })}
             
-            <button >More!</button>
+            {getPaginate(dogsToDisplay, handlePaginate)}
         </div>
     )
 }
