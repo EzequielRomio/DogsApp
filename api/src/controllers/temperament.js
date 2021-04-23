@@ -77,10 +77,10 @@ async function fillDB () {
     }
 }
 
-fillDB() //Initialize DB 
+//fillDB() //Initialize DB 
 
 module.exports = {
     getTemperaments,
     addTemperament,
-    getTemperamentByName
+    getTemperamentByName,
 }
