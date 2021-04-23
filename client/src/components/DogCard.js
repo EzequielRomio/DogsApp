@@ -13,7 +13,7 @@ const setDetails = (dog) => {
             <h5>Weight: </h5>
             <p>{dog.weight} kg</p>
             <h5>Life Span: </h5>
-            <p>{dog.life_span}</p>
+            <p>{dog.life_span || '-'}</p>
         </div>
     )
 }
