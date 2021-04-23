@@ -11,18 +11,24 @@ const setTemperaments = (temps) => {
     return (temps.map(t => t.name)).join(' ')
 }
 
-// const setDogsToDisplay = (dogs) => {
-//     //const dogsToDisplay = dogs.splice(0, 8);
-//     return dogsToDisplay.map((dog) => {
-//         return (
-//         <div key={dog.id} style={{margin: "20px 350px 20px 350px"}}>
-//             <Link to={'/dogs/details'} >
-//                 <DogCard dog={{name: dog.name, image: dog.image.url, temperaments: setTemperaments(dog.temperaments)}} />
-//             </Link>
-//         </div>
-//         )
-//     })
-// }
+
+const getPaginate = (dogsToDisplay, handlePaginate) => {
+    let totalPages = Math.floor(dogsToDisplay.length / 8) // corregir el resto %
+    const paginateButtons = [];
+    for (let i=1; i < totalPages; i++) {
+        paginateButtons.push(i)
+    }
+    return (
+        <div>
+            {paginateButtons.map(page => {
+                return (
+                    <button key={page} onClick={(e) => handlePaginate(e)} value={page}>{page}</button>
+                )
+            })}
+        </div>
+    )
+}
+
 
 const CardsContainer = ({dogs, filtered, getDogs, match}) => {
     (dogs.length === 0 || dogs.length === 1) && getDogs();
