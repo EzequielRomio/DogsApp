@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Cabin&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Cabin&family=Fredoka+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@500&display=swap');
 
 body {
   margin: 0;
@@ -47,6 +48,23 @@ code {
 a {
   display: inline-block;
   text-decoration: none;
+  color: black;
+}
+
+nav {
+  font-family: 'Raleway', sans-serif;
+  margin: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.nav-links {
+  padding: 5px;
+  width: 600px;
+  display: flex;
+  justify-content: space-evenly;
+  border-radius: 20px;
+  background-color: khaki;
 }
 
 .subtitle{
