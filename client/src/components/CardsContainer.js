@@ -15,9 +15,9 @@ const setTemperaments = (temps) => {
 
 const loading = (loading_gif) => {
     return (
-        <div>
+        <div >
             <h1>Loading...
-                <Image imgToDisplay={loading_gif} altDescription={'loading...'} imgWidth='400' imgHeight='300'/>
+                <Image className={'loading'} imgToDisplay={loading_gif} altDescription={'loading...'} imgWidth='400' imgHeight='300'/>
             </h1>
         </div>
     )

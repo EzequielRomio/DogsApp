@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Cabin&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cabin&family=Fredoka+One&display=swap');
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -13,6 +16,7 @@ code {
 }
 
 .title {
+  font-family: 'Fredoka One', cursive;
   text-shadow: 2px 1px cornsilk;
   font-size: 60px;
   margin: 5px 20px 10px 20px;
@@ -37,7 +41,7 @@ code {
   background-repeat: no-repeat;
   background-size: cover;
   height: 745px;
-  width: 1349px;
+  width: 1366px;
 }
 
 a {
@@ -46,5 +50,12 @@ a {
 }
 
 .subtitle{
-  font-size: medium;
+  font-family: 'Fredoka One', cursive;
+  font-size: 46px;
+  text-shadow: 1px 1px cornsilk;
+}
+
+.loading {
+  border: 2px dashed black;
+  border-radius: 100%;
 }
