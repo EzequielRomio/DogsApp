@@ -2,8 +2,10 @@ import React, { useState } from 'react';
 import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
 
-import DogCard from './DogCard.js'; 
+import DogCard from './DogCard.js';
+import {Image} from './Image.js'; 
 import defaultImg from '../images/default.png'
+import loading_gif from '../images/loading_gif.gif'
 import { filterBreeds, getDogs } from '../actions/index.js';
 
 const setTemperaments = (temps) => {
@@ -11,6 +13,15 @@ const setTemperaments = (temps) => {
     return (temps.map(t => t.name)).join(' ')
 }
 
+const loading = (loading_gif) => {
+    return (
+        <div>
+            <h1>Loading...
+                <Image imgToDisplay={loading_gif} altDescription={'loading...'} imgWidth='400' imgHeight='300'/>
+            </h1>
+        </div>
+    )
+} 
 
 const getPaginate = (dogsToDisplay, handlePaginate) => {
     let totalPages = Math.floor(dogsToDisplay.length / 8) // corregir el resto %
@@ -48,7 +59,8 @@ const CardsContainer = ({dogs, filtered, getDogs, match}) => {
     
     return (
         <div style={{display: "flex", alignContent: "space-between", flexDirection: "column"}}>
-            {[...dogsToDisplay].splice(index, 8).map(dog => {
+
+            {(dogsToDisplay.length > 0 && [...dogsToDisplay].splice(index, 8).map(dog => {
                 return (
                     <div key={dog.id} style={{margin: "20px 350px 20px 350px"}}>
                         <Link to={`/dogs/details/${dog.id}`} >
@@ -60,7 +72,7 @@ const CardsContainer = ({dogs, filtered, getDogs, match}) => {
                         </Link>
                     </div>
                 )
-            })}
+            })) || loading(loading_gif)}
             
             {getPaginate(dogsToDisplay, handlePaginate)}
         </div>

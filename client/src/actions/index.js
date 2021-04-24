@@ -10,7 +10,7 @@ export const getDogs = () => {
                 } else {alert('Server Error Ocurred'); return []};
             })
             .then(dogs => {return dispatch({ type: "GET_DOGS", payload: dogs })})
-            .catch((err) => {console.log(err.response.data)})
+            .catch((err) => {console.log(err)})
     }
 }
 

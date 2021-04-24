@@ -4,6 +4,7 @@ import React, {useState} from 'react';
 import {Image} from './Image';
 import dog_not_found from '../images/dog_not_found.jpg'
 import defaultImg from '../images/default.png'
+import loading_gif from '../images/loading_gif.gif'
 
 const setDetails = (dog) => {
     return (
@@ -23,6 +24,15 @@ const setTemperaments = (temps) => {
     return (temps.map(t => t.name)).join(' ')
 }
 
+const loading = (loading_gif) => {
+    return (
+        <div>
+            <h1>Loading...
+                <Image imgToDisplay={loading_gif} altDescription={'loading...'} imgWidth='400' imgHeight='300'/>
+            </h1>
+        </div>
+    )
+} 
 
 const displayDog = (dog, fullData) => {
     return (
@@ -78,7 +88,7 @@ const DogCard = ({dog, match}) => {
                 (dog && displayDog(dog, false)) ||
                 (Object.keys(dogFound).length > 0 && displayDog(dogFound, true)) ||
                 (error && dogNotFound()) ||
-                'Loading...'
+                loading(loading_gif)                
             }
         </div>
     )
