@@ -6,7 +6,7 @@ import DogCard from './DogCard.js';
 import {Image} from './Image.js'; 
 import defaultImg from '../images/default.png'
 import loading_gif from '../images/loading_gif.gif'
-import { filterBreeds, getDogs } from '../actions/index.js';
+import {getDogs } from '../actions/index.js';
 
 const setTemperaments = (temps) => {
     if (!temps || !Array.isArray(temps)) {return 'Chill'};
@@ -56,9 +56,9 @@ const CardsContainer = ({dogs, filtered, getDogs, match}) => {
         const targetIndex = (e.target.value - 1) * 8
         setIndex(targetIndex)
     }
-    
+    //style={{display: "flex", alignContent: "space-between", flexDirection: "column"}} estaba en el main div
     return (
-        <div style={{display: "flex", alignContent: "space-between", flexDirection: "column"}}>
+        <div >
 
             {(dogsToDisplay.length > 0 && [...dogsToDisplay].splice(index, 8).map(dog => {
                 return (

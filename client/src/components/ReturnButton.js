@@ -7,7 +7,7 @@ export const ReturnButton = () => {
         <div>
             <Link to={'/dogs'}>
                 <span> 
-                    <div style={{fontSize: "32px"}}> &#8592; </div>
+                    <div > &#8592; </div>
                     Return Home
                 </span>
             </Link>

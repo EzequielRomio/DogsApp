@@ -36,7 +36,7 @@ const loading = (loading_gif) => {
 
 const displayDog = (dog, fullData) => {
     return (
-        <div style={{border: "2px solid", borderColor: "black"}}>
+        <div >
             <div>
                 <h5>Name: </h5>
                 <p>{dog.name}</p>

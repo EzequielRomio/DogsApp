@@ -35,15 +35,17 @@ function App() {
         component={SearchBar}
       />
 
-      <Route
-        exact path='/dogs'
-        component={SortBar}
-      />
+      <div className={'filter-sort'}>
+        <Route
+          exact path='/dogs'
+          component={SortBar}
+        />
 
-      <Route 
-        exact path='/dogs' 
-        component={FiltersContainer} 
-      />
+        <Route 
+          exact path='/dogs' 
+          component={FiltersContainer} 
+        />
+      </div>
 
       <Route 
         exact path='/dogs'
