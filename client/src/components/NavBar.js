@@ -7,8 +7,10 @@ export const NavBar = () => {
         <nav>
             <div className={'nav-links'} >
                 <NavLink target={'/dogs'} description={'HOME'}/> |
-                <NavLink target={'/dogs/temperaments'} description={'TEMPERAMENTS'}/> |
-                <NavLink target={'/dogs/create'} description={'CREATE NEW DOG'}/>
+                <NavLink target={'/dogs/create'} description={'CREATE NEW DOG'}/>  |
+                <div>
+                   <a href='https://github.com/EzequielRomio' target='_blank'>ABOUT US</a> 
+                </div>
             </div>
         </nav>
     )

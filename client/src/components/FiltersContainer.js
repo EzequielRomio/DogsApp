@@ -4,7 +4,7 @@ import Filters from './Filters.js';
 
 export const FiltersContainer = () => {
     return (
-        <div>
+        <div className={'filter-container'}>
             <Filters filterLabel={"Breed"} />
             <Filters filterLabel={"Temperament"} />
         </div>

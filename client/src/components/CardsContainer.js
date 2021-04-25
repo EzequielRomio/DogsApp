@@ -31,12 +31,14 @@ const getPaginate = (dogsToDisplay, handlePaginate) => {
         paginateButtons.push(i) 
     }
     return (
-        <div>
+        <div className={'paginate-button-container'}>
+            
             {paginateButtons.map(page => {
                 return (
-                    <button key={page} onClick={(e) => handlePaginate(e)} value={page}>{page}</button>
+                    <button className={'paginate-button'} key={page} onClick={(e) => handlePaginate(e)} value={page}>{page}</button>
                 ) 
             })}
+            
         </div>
     )
 }
@@ -58,10 +60,11 @@ const CardsContainer = ({dogs, filtered, getDogs, match}) => {
     //style={{display: "flex", alignContent: "space-between", flexDirection: "column"}} estaba en el main div
     return (
         <div className={'cards-container'}>
+            
 
             {(dogsToDisplay.length > 0 && [...dogsToDisplay].splice(index, 8).map(dog => {
                 return (
-                    <div key={dog.id} style={{margin: "20px 350px 20px 350px"}}>
+                    <div key={dog.id} >
                         <Link to={`/dogs/details/${dog.id}`} >
                             <DogCard match={match} dog={{
                                 name: dog.name, 

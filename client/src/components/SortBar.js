@@ -24,10 +24,11 @@ const SortBar = ({sortBreeds, sortWeights}) => {
     }
 
     return (
-        <div>
-            SORT BY:
-            <button name="breed" onClick={(e) => handleClick(e)}>Breeds</button>
-            <button name="weight" onClick={(e) => handleClick(e)}>Weight</button>
+        <div className={'sort-container'}>
+            <h5>SORT BY:</h5>
+            <button name="breed" className={'sort'} onClick={(e) => handleClick(e)}>Breeds</button>
+            <div className={'sort-separator'}></div>
+            <button name="weight" className={'sort'} onClick={(e) => handleClick(e)}>Weight</button>
         </div>
     )
 }

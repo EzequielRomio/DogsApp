@@ -33,8 +33,8 @@ const Filters = ({filterLabel, temperaments, breeds, filterBreeds, filterTempera
     }
     
     return (
-        <div>
-            <label>Filter by {filterLabel}</label>
+        <div className={'filter'}>
+            <h5> <label>Filter by {filterLabel}</label> </h5>
             <select onChange={(e) => handleClick(e)}>
                 <option name={'initial'} key={'initial'}>-</option>
                 {(breeds && (filterLabel === 'Breed' && displayOptions(breeds))) || (temperamentsNames && displayOptions(temperamentsNames))}

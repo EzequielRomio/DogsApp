@@ -48,6 +48,11 @@ code {
   width: 1366px;
 }
 
+button {
+  border: none;
+  background-color: transparent;
+}
+
 a {
   display: inline-block;
   text-decoration: none;
@@ -81,9 +86,6 @@ nav {
   background-color: khaki;
 }
 
-.filter-sort {
-  display: flex;
-}
 
 .subtitle{
   font-family: 'Fredoka One', cursive;
@@ -94,14 +96,21 @@ nav {
 .loading {
   border: 2px dashed black;
   border-radius: 100%;
+  position: absolute;
+  top: 200px;
+  left: 460px;
+    
 }
 
 .fill-screen {
   height: 400px;
 }
 
+.home-container {
+  display: flex;
+}
+
 .dog-card {
-  /* background-color: #ffa366; */
   background-color: khaki;
   border-radius: 14px;
   border: 6px solid olivedrab;
@@ -112,6 +121,8 @@ nav {
   white-space: pre-line;
   overflow: hidden;
   text-overflow: ellipsis;
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 
 .dog-card-content {
@@ -124,10 +135,94 @@ nav {
   border-bottom-left-radius: 8px;
 }
 
-.details.page {
+.details-page {
   background-color: salmon;
 }
 
 .cards-container {
   min-height: 1280px;
+  min-width: 740px;
+  max-width: 740px;
 }
+
+.home-page-auxiliar {
+  width: 200px;
+}
+
+.sort-container {
+  border-radius: 10px;
+  border: 2px solid seagreen;
+  background-color: lightgreen;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  width: 220px;
+  height: 100px;
+  margin: 60px 5% 20px 5%;
+}
+
+.paginate-button-container {
+  border-radius: 10px;
+  background-color: springgreen;
+  /* padding-left: 5%;
+  padding-right: 5%; */
+  margin-left: 10%;
+  margin-right: 10%;
+  
+}
+
+.paginate-button {
+  font-family: 'Saira Condensed', sans-serif;
+  width: 20px;
+  background-color: springgreen;
+  border: none;
+}
+
+
+.search-input {
+  font-family: 'Raleway', sans-serif;
+  height: 26px;
+  border: 2px solid green;
+  border-radius: 5px;
+  width: 260px;
+}
+
+.filter-sort {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-left: 80px;
+}
+
+select {
+  width: 240px;
+  border-radius: 5px;
+  height: 24px;
+  font-family: 'Raleway', sans-serif;
+}
+/* 
+.filter-container {
+  display: inline;
+  
+} */
+
+.filter {
+  font-family: 'Raleway', sans-serif;
+  margin-top: 20px;
+}
+
+.sort {
+  font-family: 'Raleway', sans-serif;
+  height: 26px;
+}
+
+button.sort:hover {
+  background-color: gold;
+}
+
+.sort-separator {
+  margin: 0px 40px 0px 40px;
+  border: 1px solid seagreen;
+}
+

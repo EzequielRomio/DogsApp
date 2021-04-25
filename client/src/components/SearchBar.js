@@ -23,7 +23,9 @@ const SearchBar = ({searchName}) => {
                 type="text"
                 value={input}
                 onChange={onChange}
-                placeholder="Search Dog/Breed"
+                placeholder=" Search Dog/Breed"
+
+                className={'search-input'}
             ></input>
             <span >&#x1F50D;</span> 
             
