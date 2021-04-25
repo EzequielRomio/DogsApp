@@ -6,9 +6,20 @@ import dog_not_found from '../images/dog_not_found.jpg'
 import defaultImg from '../images/default.png'
 import loading_gif from '../images/loading_gif.gif'
 
-const setDetails = (dog) => {
+const loading = (loading_gif) => {
     return (
         <div>
+            
+            <Image className={'loading'} imgToDisplay={loading_gif} altDescription={'loading...'} imgWidth='400' imgHeight='300'/>
+            
+        </div>
+    )
+} 
+
+
+const setDetails = (dog) => {
+    return (
+        <div className={'details-page-info details'}>
             <h5>Height: </h5>
             <p>{dog.height} cm</p>
             <h5>Weight: </h5>
@@ -24,27 +35,26 @@ const setTemperaments = (temps) => {
     return (temps.map(t => t.name)).join(' ')
 }
 
-const loading = (loading_gif) => {
-    return (
-        <div>
-            <h1>Loading...
-                <Image imgToDisplay={loading_gif} altDescription={'loading...'} imgWidth='400' imgHeight='300'/>
-            </h1>
-        </div>
-    )
-} 
 
 const displayDog = (dog, fullData) => {
     return (
-        <div className={(fullData && 'details-page') || 'dog-card'}>
-            <Image imgToDisplay={dog.image} altDescription={'Dog´s breed'} className={'dog-card-image'} />
-            <div className={'dog-card-content'}>
-                <h5>Name: </h5>
-                <p>{dog.name}</p>
-                <h5>Temperaments: </h5>
-                <p>{dog.temperaments}</p>
+        <div  className={(fullData && 'details-page') || 'dog-card'}>
+            <Image 
+                imgToDisplay={dog.image} 
+                imgHeight={fullData && '100%'} 
+                imgWidth={fullData && '100%'}
+                altDescription={'Dog´s breed'} 
+                className={'dog-card-image'} 
+            />
+            <div >
+                <div className={(fullData && 'details-page-info') || 'dog-card-content'}>
+                    <h5>Name: </h5>
+                    <p>{dog.name}</p>
+                    <h5>Temperaments: </h5>
+                    <p>{dog.temperaments}</p>
+                </div>
+                {fullData && setDetails(dog)}
             </div>
-            {fullData && setDetails(dog)}
         </div>
     )
 
@@ -83,7 +93,7 @@ const DogCard = ({dog, match}) => {
             })
     }
     return (
-        <div>
+        <div className={'details-page-container'}>
             {
                 (dog && displayDog(dog, false)) ||
                 (Object.keys(dogFound).length > 0 && displayDog(dogFound, true)) ||
