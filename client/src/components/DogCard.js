@@ -36,15 +36,15 @@ const loading = (loading_gif) => {
 
 const displayDog = (dog, fullData) => {
     return (
-        <div >
-            <div>
+        <div className={(fullData && 'details-page') || 'dog-card'}>
+            <Image imgToDisplay={dog.image} altDescription={'Dog´s breed'} className={'dog-card-image'} />
+            <div className={'dog-card-content'}>
                 <h5>Name: </h5>
                 <p>{dog.name}</p>
                 <h5>Temperaments: </h5>
                 <p>{dog.temperaments}</p>
             </div>
             {fullData && setDetails(dog)}
-            <Image imgToDisplay={dog.image} altDescription={'Dog´s breed'} />
         </div>
     )
 

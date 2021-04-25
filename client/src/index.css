@@ -1,6 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Cabin&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Cabin&family=Fredoka+One&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Saira+Condensed:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Saira+Condensed:wght@500&family=Varela+Round&display=swap');
 
 body {
   margin: 0;
@@ -35,7 +37,7 @@ code {
   padding: 10px 40px 10px 40px;
   display: inline-block;
   border: groove 8px;
-  border-color: gold;
+  border-color: green;
 }
 
 .main-page {
@@ -50,6 +52,17 @@ a {
   display: inline-block;
   text-decoration: none;
   color: black;
+}
+
+p {
+  margin: 0%;
+  font-family: 'Saira Condensed', sans-serif;
+}
+
+h5 {
+  margin-bottom: 0%;
+  margin-top: 10px;
+  font-family: 'Varela Round', sans-serif;
 }
 
 nav {
@@ -85,4 +98,36 @@ nav {
 
 .fill-screen {
   height: 400px;
+}
+
+.dog-card {
+  /* background-color: #ffa366; */
+  background-color: khaki;
+  border-radius: 14px;
+  border: 6px solid olivedrab;
+  display: flex;
+  max-height: 150px;
+  box-shadow: 3px 6px 8px gray;
+  width: 500px;
+  white-space: pre-line;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.dog-card-content {
+  padding: 0% 5% 0% 5%;
+  width: 300px;
+}
+
+.dog-card-image {
+  border-top-left-radius: 8px;
+  border-bottom-left-radius: 8px;
+}
+
+.details.page {
+  background-color: salmon;
+}
+
+.cards-container {
+  min-height: 1280px;
 }
