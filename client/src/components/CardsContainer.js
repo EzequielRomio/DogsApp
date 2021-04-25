@@ -16,9 +16,8 @@ const setTemperaments = (temps) => {
 const loading = (loading_gif) => {
     return (
         <div >
-            <h1>Loading...
-                <Image className={'loading'} imgToDisplay={loading_gif} altDescription={'loading...'} imgWidth='400' imgHeight='300'/>
-            </h1>
+            <Image className={'loading'} imgToDisplay={loading_gif} altDescription={'loading...'} imgWidth='400' imgHeight='300'/>
+            <div className={'fill-screen'}></div>
         </div>
     )
 } 
@@ -58,7 +57,7 @@ const CardsContainer = ({dogs, filtered, getDogs, match}) => {
     }
     //style={{display: "flex", alignContent: "space-between", flexDirection: "column"}} estaba en el main div
     return (
-        <div >
+        <div className={'cards-container'}>
 
             {(dogsToDisplay.length > 0 && [...dogsToDisplay].splice(index, 8).map(dog => {
                 return (
