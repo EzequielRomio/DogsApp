@@ -16,9 +16,9 @@ const MainPageContainer = ({getDogs, getTemperaments}) => {
     }, [])
 
     return (
-    <div className={'main-page'}>
+    <div className={'main-page'} data-testid="0">
         <div className={'transparent-bg'}>
-            <Title isMain={'title'}/>
+            <Title isMain={'title'} />
             <Link to={'/dogs'} className={'start-button'}>
                 <Image imgToDisplay={startButton} imgHeight='180' imgWidth='180'/>
             </Link>
