@@ -56,7 +56,9 @@ const CardsContainer = ({dogs, filtered, getDogs, match}) => {
         e.preventDefault();
         const targetIndex = (e.target.value - 1) * 8
         setIndex(targetIndex)
+        window.scrollTo(0, 0)
     }
+
     //style={{display: "flex", alignContent: "space-between", flexDirection: "column"}} estaba en el main div
     return (
         <div className={'cards-container'}>
