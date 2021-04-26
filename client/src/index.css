@@ -90,6 +90,7 @@ nav {
 }
 
 .nav-links {
+  border: 1px solid black;
   padding: 5px;
   width: 600px;
   display: flex;
@@ -123,7 +124,7 @@ nav {
 }
 
 .dog-card {
-  background-color: khaki;
+  background-color: lemonchiffon;
   border-radius: 14px;
   border: 6px solid olivedrab;
   display: flex;
@@ -194,7 +195,7 @@ nav {
 .sort-container {
   border-radius: 10px;
   border: 2px solid seagreen;
-  background-color: lightgreen;
+  background-color: lemonchiffon;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
@@ -205,7 +206,7 @@ nav {
 
 .paginate-button-container {
   border-radius: 10px;
-  background-color: springgreen;
+  background-color: lightsalmon;
   /* padding-left: 5%;
   padding-right: 5%; */
   margin-left: 10%;
@@ -216,7 +217,7 @@ nav {
 .paginate-button {
   font-family: 'Saira Condensed', sans-serif;
   width: 20px;
-  background-color: springgreen;
+  background-color: lightsalmon;
   border: none;
 }
 
@@ -300,10 +301,11 @@ li {
 .form-image-container {
   display: flex;
   flex-direction: row;
-  background-color:palegreen;
+  background-color: lemonchiffon;
   border-radius: 20px;
   margin: 0px 80px 0px 80px;
   padding-top: 20px;
+  box-shadow: 3px 6px 10px 3px gray;
 }
 
 form {
@@ -326,7 +328,7 @@ form {
 .form-separator {
   margin-top: 40px;
   margin-bottom: 40px;
-  border: 2px solid whitesmoke;
+  border: 2px solid black;
   margin-right: 80px;
 }
 
