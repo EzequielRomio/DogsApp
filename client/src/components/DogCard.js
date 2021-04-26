@@ -8,7 +8,7 @@ import loading_gif from '../images/loading_gif.gif'
 
 const loading = (loading_gif) => {
     return (
-        <div>
+        <div className={'details-page-container'}>
             
             <Image className={'loading'} imgToDisplay={loading_gif} altDescription={'loading...'} imgWidth='400' imgHeight='300'/>
             
@@ -44,7 +44,7 @@ const displayDog = (dog, fullData) => {
                 imgHeight={fullData && '100%'} 
                 imgWidth={fullData && '100%'}
                 altDescription={'Dog´s breed'} 
-                className={'dog-card-image'} 
+                className={(fullData && 'details-dog-image') || 'dog-card-image'} 
             />
             <div >
                 <div className={(fullData && 'details-page-info') || 'dog-card-content'}>
@@ -93,7 +93,7 @@ const DogCard = ({dog, match}) => {
             })
     }
     return (
-        <div className={'details-page-container'}>
+        <div >
             {
                 (dog && displayDog(dog, false)) ||
                 (Object.keys(dogFound).length > 0 && displayDog(dogFound, true)) ||
