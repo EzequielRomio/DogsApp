@@ -30,7 +30,6 @@ const displaySelectedTemperaments = (temperamentsChecked, removeTemperament) => 
     for (const temp in temperamentsChecked) {
         if (temperamentsChecked[temp]) {console.log(temp); result.push(temp)}
     }
-    console.log(result, 'soy result')
 
     return (
         <ul >
@@ -67,7 +66,7 @@ const createRadioInputs = (labelName, handleChange) => {
                 return (
                     <div key={ix}>
                         <label>{option} {labelName === 'weight' ? 'kg' : 'cm'}</label>
-                        <input value={option} onChange={handleChange} type="radio" name={labelName}></input>
+                        <input value={option} onChange={handleChange} type="radio" name={labelName} required></input>
                     </div>
                 )    
             })}
@@ -124,7 +123,6 @@ const CreateDog = ({temperamentList, postDog, getTemperaments, newDogId, restart
     const [joinedTemperaments, setJoinedTemperaments] = useState('')
     const [errors, setErrors] = useState({})
     const [submited, setSubmited] = useState(false);
-    const [formAuxiliar, setFormAuxiliar] = useState({})
 
     const history = useHistory()
 
@@ -132,6 +130,7 @@ const CreateDog = ({temperamentList, postDog, getTemperaments, newDogId, restart
     useEffect(() => {
         if (submited && hasErrors(errors)) {
             setSubmited(false);
+            if (errors.temperaments) {alert('Select at least one temperament!')}
         } else if (submited) {
             postDog(inputs);
         }
@@ -147,13 +146,11 @@ const CreateDog = ({temperamentList, postDog, getTemperaments, newDogId, restart
 
     
     useEffect(() => {
-        console.log(postErrors)
         if (newDogId !== 0) {
             const id = newDogId
             restartNewDogId()
             history.push(`/dogs/details/${id}`)
         } else if (postErrors[409]) {
-            console.log('This dog already exist jdksajdlas')
             alert('This dog already exist, insert a diferent Name')
             resetErrors()
         } else if (postErrors[400]) {
@@ -256,6 +253,7 @@ const CreateDog = ({temperamentList, postDog, getTemperaments, newDogId, restart
                             onChange={handleChange}
                             type="text"
                             name="name"
+                            required
                         ></input>
                     </div>
                     <div className={'weight-height-container'}>

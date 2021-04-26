@@ -329,3 +329,7 @@ form {
   border: 2px solid whitesmoke;
   margin-right: 80px;
 }
+
+input.send-button:hover {
+  background-color: gold;
+}
