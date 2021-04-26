@@ -16,7 +16,7 @@ const displayValues = (inputs) => {
             {result.map(k =>{
                 return (
                     <div>
-                        <h4>{k}</h4>
+                        <h4>{k} :</h4>
                         <h5>{inputs[k]}</h5>
                     </div>
                 )
@@ -140,8 +140,6 @@ const CreateDog = ({temperamentList, postDog, getTemperaments, newDogId, restart
 
     useEffect(()=> {
         setJoinedTemperaments(joinTemperaments(temperamentsChecked, customTemperament));
-        console.log('temperamentes  ', temperamentsChecked)
-        console.log(joinedTemperaments, ' soy joined')
     }, [temperamentsChecked, customTemperament])
 
     
@@ -230,14 +228,6 @@ const CreateDog = ({temperamentList, postDog, getTemperaments, newDogId, restart
         return result;
     }
 
-    // const handleFormChange = (e) => {
-    //     e.preventDefault();
-    //     setFormAuxiliar({
-    //         ...formAuxiliar,
-    //         [e.target.value] 
-    //     })
-    // }
-
     return (
         <div>
             <h2>Create New Dog</h2>
@@ -298,7 +288,7 @@ const CreateDog = ({temperamentList, postDog, getTemperaments, newDogId, restart
 
                 <div className={'form-separator'}></div>
 
-                <div >
+                <div className={'preview'}>
                     <h4>Preview</h4>
                     <Image imgToDisplay={defaultImg} imgWidth={'50%'} imgHeight={'50%'}></Image>
                     {displayValues(inputs)}

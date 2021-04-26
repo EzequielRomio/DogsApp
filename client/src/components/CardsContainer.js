@@ -9,7 +9,14 @@ import loading_gif from '../images/loading_gif.gif'
 import {getDogs } from '../actions/index.js';
 
 const setTemperaments = (temps) => {
-    if (!temps || !Array.isArray(temps)) {return 'Chill'};
+    if (typeof temps === 'string') {
+        return temps
+    }
+
+    if (!temps || !Array.isArray(temps)) {
+        return 'Chill'
+    };
+    
     return (temps.map(t => t.name)).join(' ')
 }
 
