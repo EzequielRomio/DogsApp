@@ -20,7 +20,7 @@ const Filters = ({filterLabel, temperaments, breeds, filterBreeds, filterTempera
         e.preventDefault();
         console.log(e.target.value)
         if (filterLabel === 'Breed') {filterBreeds(e.target.value)};
-        if (filterLabel === 'Temperament') {console.log(filterLabel); filterTemperaments(e.target.value)};
+        if (filterLabel === 'Temperament') {filterTemperaments(e.target.value)};
         
     }
 

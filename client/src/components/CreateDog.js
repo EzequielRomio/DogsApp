@@ -3,23 +3,47 @@ import {connect} from 'react-redux';
 import {useHistory} from 'react-router-dom';
 
 import {postDog, getTemperaments, restartNewDogId, resetErrors} from '../actions/index.js';
+import {Image} from './Image.js'
+import defaultImg from '../images/default.png'
 
-const createTemperamentsCheckBox = (temperamentList, handleChange) => {
+const displayValues = (inputs) => {
+    const result = [];
+    for (const k in inputs) {
+        if (k !== 'temperaments') {result.push(k)}
+    }
     return (
-        temperamentList.map(temp => {
-            return (
-            <div key={temp.id} style={{margin: '10px', width: '180px'}}>
-                <label>{temp.name}</label>
-                    <input
-                        onChange={(e) => handleChange(e)}
-                        value={temp.name}
-                        type="checkbox"
-                        name={temp.name}
-                    ></input>
-            </div>
-            )
-        })   
-    )    
+        <div>
+            {result.map(k =>{
+                return (
+                    <div>
+                        <h4>{k}</h4>
+                        <h5>{inputs[k]}</h5>
+                    </div>
+                )
+            })}
+        </div>
+    )
+}
+
+const displaySelectedTemperaments = (temperamentsChecked, removeTemperament) => {
+    const result = [];
+    for (const temp in temperamentsChecked) {
+        if (temperamentsChecked[temp]) {console.log(temp); result.push(temp)}
+    }
+    console.log(result, 'soy result')
+
+    return (
+        <ul >
+            {result.map(temp => {
+                return (
+                    <p key={temp} value={temp}>
+                        {temp}
+                        <button className={'remove-button'} onClick={(e) => removeTemperament(e)} value={temp} >x</button> 
+                    </p>
+                )
+            })}
+        </ul>
+    )
 }
 
 const checkTemps = (temperamentsChecked) => {
@@ -38,7 +62,7 @@ const createRadioInputs = (labelName, handleChange) => {
     labelName === 'weight' ? label = weights : label = heights
 
     return (
-        <div>
+        <div className={'radio-inputs'}>
             {label.map((option, ix) => {
                 return (
                     <div key={ix}>
@@ -51,6 +75,15 @@ const createRadioInputs = (labelName, handleChange) => {
     )
 
 }
+
+const displayOptions = (filter, handleChange) => {
+    return filter.map((label, ix)=> {
+        return (
+            <option name={label.name} onChange={(e) => handleChange(e)} key={ix}>{label.name}</option>
+        )
+    })
+}
+
 
 const validateBody = (inputs, temperamentsChecked, customTemperament) => {
     const errors = {
@@ -91,6 +124,8 @@ const CreateDog = ({temperamentList, postDog, getTemperaments, newDogId, restart
     const [joinedTemperaments, setJoinedTemperaments] = useState('')
     const [errors, setErrors] = useState({})
     const [submited, setSubmited] = useState(false);
+    const [formAuxiliar, setFormAuxiliar] = useState({})
+
     const history = useHistory()
 
     /****** useEffect *******/
@@ -106,7 +141,8 @@ const CreateDog = ({temperamentList, postDog, getTemperaments, newDogId, restart
 
     useEffect(()=> {
         setJoinedTemperaments(joinTemperaments(temperamentsChecked, customTemperament));
-        console.log(joinedTemperaments)
+        console.log('temperamentes  ', temperamentsChecked)
+        console.log(joinedTemperaments, ' soy joined')
     }, [temperamentsChecked, customTemperament])
 
     
@@ -152,10 +188,19 @@ const CreateDog = ({temperamentList, postDog, getTemperaments, newDogId, restart
         setErrors(validateBody(inputs, temperamentsChecked, customTemperament))
     }
 
-    const checkboxChange = (e) => {
+    const removeTemperament = (e) => {
+        e.preventDefault();
         setTemperamentsChecked({
             ...temperamentsChecked,
-            [e.target.value]: e.target.checked
+            [e.target.value]: false
+        })
+    }
+
+    const temperamentsChange = (e) => {
+        e.preventDefault();
+        setTemperamentsChecked({
+            ...temperamentsChecked,
+            [e.target.value]: true
         })
     }
 
@@ -188,58 +233,81 @@ const CreateDog = ({temperamentList, postDog, getTemperaments, newDogId, restart
         return result;
     }
 
+    // const handleFormChange = (e) => {
+    //     e.preventDefault();
+    //     setFormAuxiliar({
+    //         ...formAuxiliar,
+    //         [e.target.value] 
+    //     })
+    // }
 
     return (
         <div>
-            <form onSubmit={handleSubmit}>
-                <h2>Create New Dog</h2>
-                <div>
-                    <h4>Name</h4>
-                    <input
-                        value={inputs.name}
-                        onChange={handleChange}
-                        type="text"
-                        name="name"
-                    ></input>
-                </div>
-                <div>
-                    <h4>Height</h4>
-                    {createRadioInputs('height', handleChange)}
-                </div>
-
-                <div>
-                    <h4>Weight</h4>
-                    {createRadioInputs('weight', handleChange)}
-                </div>
-                <div>
-                    <h4>Life Span</h4>
-                    <input
-                        value={inputs.life_span}
-                        onChange={handleChange}
-                        type="text"
-                        name="life_span"
-                    ></input>
-                </div>
-                <div>
-                    <h3>Temperaments</h3>
+            <h2>Create New Dog</h2>
+            <div className={'form-image-container'}>
+                
+                <form onSubmit={handleSubmit} >
                     
-                    <div style={{display: 'flex', flexWrap: 'wrap', justifyContent: 'space-evenly'}}>
-                        {
-                            temperamentList && 
-                            temperamentList.length > 0 &&
-                            createTemperamentsCheckBox(temperamentList, checkboxChange)
-                        }
-
+                    <div>
+                        <h4>Name</h4>
+                        <input
+                            className={'inputs'}
+                            value={inputs.name}
+                            onChange={handleChange}
+                            type="text"
+                            name="name"
+                        ></input>
                     </div>
+                    <div className={'weight-height-container'}>
+                        <div className={'wh-auxiliar'}>
+                            <h4>Height</h4>
+                            {createRadioInputs('height', handleChange)}
+                        </div>
+                        <div className={'wh-auxiliar'}>
+                            <h4>Weight</h4>
+                            {createRadioInputs('weight', handleChange)}
+                        </div>
+                    </div>
+                    <div>
+                        <h4>Life Span</h4>
+                        <input
+                            className={'inputs'}
+                            value={inputs.life_span}
+                            onChange={handleChange}
+                            type="text"
+                            name="life_span"
+                        ></input>
+                    </div>
+                    <div>
+                        <h4>Temperaments</h4>
                         
+                        <select onChange={(e) => temperamentsChange(e)}>
+                            {(temperamentList && temperamentList.length > 0 && displayOptions(temperamentList, temperamentsChange))}
+                        </select>
+
+                        
+                        <h4>Selected Temperaments: </h4>
+                        {displaySelectedTemperaments(temperamentsChecked, removeTemperament)}            
+                            
+                    </div>
+                    <div>
+                        <h4>Create New Temperament</h4>
+                        <label>Insert a new temperament, or temperaments separated by "-"</label>
+                        <input type="text" className={'inputs'} name="newTemperament" onChange={handleNewTemperament} placeholder="Adventurous-Active-Fun-loving"></input>
+                    </div>
+                    <input type="submit" value="Send" className={'send-button'}></input>
+                </form>
+
+                <div className={'form-separator'}></div>
+
+                <div >
+                    <h4>Preview</h4>
+                    <Image imgToDisplay={defaultImg} imgWidth={'50%'} imgHeight={'50%'}></Image>
+                    {displayValues(inputs)}
                 </div>
-                <div>
-                    <h4>Create New Temperament</h4>
-                    <label>Insert a new temperament, or temperaments separated by "-"</label>
-                    <input type="text" name="newTemperament" onChange={handleNewTemperament} placeholder="Adventurous-Active-Fun-loving"></input>
-                </div>
-                <input type="submit" value="Send"></input>
-            </form>
+
+
+            </div>
         </div>
     )
 }
