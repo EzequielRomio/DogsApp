@@ -148,6 +148,7 @@ const CreateDog = ({temperamentList, postDog, getTemperaments, newDogId, restart
             const id = newDogId
             restartNewDogId()
             history.push(`/dogs/details/${id}`)
+            window.scrollTo(0, 0)
         } else if (postErrors[409]) {
             alert('This dog already exist, insert a diferent Name')
             resetErrors()
@@ -266,7 +267,7 @@ const CreateDog = ({temperamentList, postDog, getTemperaments, newDogId, restart
                             name="life_span"
                         ></input>
                     </div>
-                    <div>
+                    <div >
                         <h4>Temperaments</h4>
                         
                         <select onChange={(e) => temperamentsChange(e)}>
@@ -278,7 +279,7 @@ const CreateDog = ({temperamentList, postDog, getTemperaments, newDogId, restart
                         {displaySelectedTemperaments(temperamentsChecked, removeTemperament)}            
                             
                     </div>
-                    <div>
+                    <div className={'temps-container'}>
                         <h4>Create New Temperament</h4>
                         <label>Insert a new temperament, or temperaments separated by "-"</label>
                         <input type="text" className={'inputs'} name="newTemperament" onChange={handleNewTemperament} placeholder="Adventurous-Active-Fun-loving"></input>

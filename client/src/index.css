@@ -48,8 +48,8 @@ div.transparent-bg:hover {
   background-image: url('./images/luni.jpeg');
   background-repeat: no-repeat;
   background-size: cover;
-  height: 745px;
-  width: 1366px;
+  height: 1080px;
+  /* width: 1366px; */
 }
 
 button {
@@ -110,8 +110,8 @@ nav {
   border: 2px dashed black;
   border-radius: 100%;
   position: absolute;
-  top: 200px;
-  left: 460px;
+  top: 25%;
+  left: 38%;
     
 }
 
@@ -121,12 +121,15 @@ nav {
 
 .home-container {
   display: flex;
+  flex-direction: row;
+  justify-content:space-evenly;
+  
 }
 
 .dog-card {
   background-color: lemonchiffon;
   border-radius: 14px;
-  border: 6px solid olivedrab;
+  border: 6px solid peru;
   display: flex;
   max-height: 150px;
   box-shadow: 3px 6px 8px gray;
@@ -158,6 +161,7 @@ nav {
   padding-top: 3px;
   padding-bottom: 3px;
   padding-left: 80px;
+  
 }
 
 .details-dog-image {
@@ -173,7 +177,7 @@ nav {
 }
 
 .details-page-container {
-  min-height: 1280px;
+  min-height: 1080px;
 }
 
 .details {
@@ -189,7 +193,8 @@ nav {
 }
 
 .home-page-auxiliar {
-  width: 200px;
+  width: 300px;
+
 }
 
 .sort-container {
@@ -272,7 +277,7 @@ button.sort:hover {
 .send-button {
   font-weight: bold;
   width: 130px;
-  background-color: lightgreen;
+  background-color: yellowgreen;
   font-family: 'Raleway', sans-serif;
   height: 26px;
   border-radius: 5px;
@@ -301,6 +306,7 @@ li {
 .form-image-container {
   display: flex;
   flex-direction: row;
+  justify-content: space-evenly;
   background-color: lemonchiffon;
   border-radius: 20px;
   margin: 0px 80px 0px 80px;
@@ -329,7 +335,14 @@ form {
   margin-top: 40px;
   margin-bottom: 40px;
   border: 2px solid black;
-  margin-right: 80px;
+
+  margin-left: 80px;
+}
+
+.temps-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 input.send-button:hover {
@@ -340,8 +353,13 @@ input.send-button:hover {
   box-shadow: 3px 6px 10px 3px gray;
   border-radius: 20px; 
   background-color: lightsalmon;
-  margin-right: 60px;
+  margin-left: 60px;
   margin-bottom: 200px;
   padding-bottom: 40px;
 
+}
+
+.return-button {
+  padding-bottom: 40px;
+  padding-top: 40px;
 }

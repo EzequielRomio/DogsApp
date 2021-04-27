@@ -73,7 +73,7 @@ const CardsContainer = ({dogs, filtered, getDogs, match}) => {
 
             {(dogsToDisplay.length > 0 && [...dogsToDisplay].splice(index, 8).map(dog => {
                 return (
-                    <div key={dog.id} >
+                    <div key={dog.id} onClick={() => {window.scrollTo(0 ,0)}}>
                         <Link to={`/dogs/details/${dog.id}`} >
                             <DogCard match={match} dog={{
                                 name: dog.name, 
