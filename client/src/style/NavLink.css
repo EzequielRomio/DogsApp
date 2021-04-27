@@ -1,0 +1,10 @@
+.nav-links {
+    border: 1px solid black;
+    padding: 5px;
+    width: 600px;
+    display: flex;
+    justify-content: space-evenly;
+    border-radius: 20px;
+    background-color: khaki;
+}
+  
