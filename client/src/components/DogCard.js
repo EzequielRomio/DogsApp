@@ -40,7 +40,7 @@ const displayDog = (dog, fullData) => {
     return (
         <div  className={(fullData && 'details-page') || 'dog-card'}>
             <Image 
-                imgToDisplay={dog.image} 
+                imgToDisplay={dog.image}
                 imgHeight={fullData && '100%'} 
                 imgWidth={fullData && '100%'}
                 altDescription={'Dog´s breed'} 

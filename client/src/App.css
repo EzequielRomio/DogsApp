@@ -37,3 +37,22 @@
     transform: rotate(360deg);
   }
 }
+
+
+.home-container {
+  display: flex;
+  flex-direction: row;
+  justify-content:space-evenly;
+}
+
+.home-page-auxiliar {
+  width: 300px;
+}
+
+.filter-sort {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-left: 80px;
+}
