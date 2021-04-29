@@ -11,10 +11,15 @@ import {FiltersContainer} from './components/FiltersContainer.js';
 import DogCard from './components/DogCard.js';
 import {ReturnButton} from './components/ReturnButton.js';
 import CreateDog from './components/CreateDog.js';
+import {ServerError} from './components/ServerError.js';
 
 function App() {
   return (
     <div className="App">
+      <Route 
+        exact path='/serverError'
+        component={ServerError}
+      />
       <Route 
         exact path='/'
         component={MainPageContainer}

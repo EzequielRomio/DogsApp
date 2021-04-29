@@ -1,9 +1,8 @@
 const initialState = {
     dogs: [],
     temperaments: [],
-    
+    breeds: [],
     filtered: [],
-    postOk: false,
     newDogId: 0,
     errors: {400: false, 409: false}
 }
@@ -59,20 +58,20 @@ const rootReducer = (state = initialState, actions) => {
         case 'GET_TEMPERAMENTS':
             return {...state, temperaments: sortTemperaments(actions.payload)};
 
-        case 'POST_NOT_OK': {
-            return {...state, postOk: false};
-        }
         case 'RESTART_NEW_DOG_ID':
             return {...state, newDogId: 0};
+        
         case 'HANDLE_400':
             return {...state, errors: {400: true, 409: false}}
-        case 'HANDLE_409':
-            console.log('entre al reducer del 409')
+        
+        case 'HANDLE_409':    
             return {...state, errors: {409: true, 400: false}}
+        
         case 'RESET_ERRORS':
             return {...state, errors: {400: false, 409: false}}
+        
         case 'ADD_DOG':
-            return {...state, dogs: state.dogs.concat(actions.payload), postOk: true, newDogId: actions.payload.id};
+            return {...state, dogs: state.dogs.concat(actions.payload), newDogId: actions.payload.id};
 
         case 'SORT_BREEDS':
             return {...state, filtered: sortBreeds(state.dogs, actions.payload)};

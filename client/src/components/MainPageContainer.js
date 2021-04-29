@@ -6,14 +6,12 @@ import {Image} from './Image.js';
 import {Title} from './Title.js';
 import startButton from '../images/start-button.png';
 import {getDogs, getTemperaments} from '../actions/index.js';
-import start_img from '../images/start_img.jpg'
 
 const MainPageContainer = ({getDogs, getTemperaments}) => {
-    //<Image imgToDisplay={start_img} altDescription={'White and black dog'} imgWidth={"1920"} imgHeight={"1118"} />    
-    useEffect(()=>{
-        getDogs();
-        getTemperaments();
-    }, [])
+
+    // initialize the store...
+    getDogs();
+    getTemperaments();
 
     return (
     <div className={'main-page'} data-testid="0">
