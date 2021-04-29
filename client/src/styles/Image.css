@@ -1,0 +1,10 @@
+.dog-card-image {
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+}
+
+.details-dog-image {
+    border-right: 2px solid whitesmoke;
+    padding-right: 5px;
+}
+  

@@ -1,0 +1,24 @@
+.sort-container {
+    border-radius: 10px;
+    border: 2px solid seagreen;
+    background-color: lemonchiffon;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    width: 220px;
+    height: 100px;
+    margin: 60px 5% 20px 5%;
+}
+
+.sort-separator {
+    margin: 0px 40px 0px 40px;
+    border: 1px solid seagreen;
+}
+
+.sort {
+    font-family: 'Raleway', sans-serif;
+    height: 26px;
+}
+  
+  
+  
