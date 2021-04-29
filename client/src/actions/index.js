@@ -5,8 +5,7 @@ export const getDogs = () => {
         axios.get("http://localhost:3001/dogs", {responseType: 'json'})
             .then(res => {
                 if (res.status === 200) {
-                    console.log(res.status)
-                    return res.data.map(dog => {console.log(dog); return {...dog, weight: dog.weight.metric, height: dog.height.metric}})
+                    return res.data.map(dog => {return {...dog, weight: dog.weight.metric, height: dog.height.metric}})
                 } else {alert('Server Error Ocurred'); return []};
             })
             .then(dogs => {return dispatch({ type: "GET_DOGS", payload: dogs })})

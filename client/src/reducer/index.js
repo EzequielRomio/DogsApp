@@ -1,7 +1,7 @@
 const initialState = {
     dogs: [],
     temperaments: [],
-    dogsToDisplay: [],
+    
     filtered: [],
     postOk: false,
     newDogId: 0,

@@ -18,7 +18,6 @@ const Filters = ({filterLabel, temperaments, breeds, filterBreeds, filterTempera
 
     const handleClick = (e) => {
         e.preventDefault();
-        console.log(e.target.value)
         if (filterLabel === 'Breed') {filterBreeds(e.target.value)};
         if (filterLabel === 'Temperament') {filterTemperaments(e.target.value)};
         

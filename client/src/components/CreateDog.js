@@ -6,6 +6,7 @@ import {postDog, getTemperaments, restartNewDogId, resetErrors} from '../actions
 import {Image} from './Image.js'
 import defaultImg from '../images/default.png'
 
+
 const displayValues = (inputs) => {
     const result = [];
     for (const k in inputs) {
@@ -28,7 +29,7 @@ const displayValues = (inputs) => {
 const displaySelectedTemperaments = (temperamentsChecked, removeTemperament) => {
     const result = [];
     for (const temp in temperamentsChecked) {
-        if (temperamentsChecked[temp]) {console.log(temp); result.push(temp)}
+        if (temperamentsChecked[temp]) {result.push(temp)}
     }
 
     return (
@@ -47,7 +48,7 @@ const displaySelectedTemperaments = (temperamentsChecked, removeTemperament) => 
 
 const checkTemps = (temperamentsChecked) => {
     for (const temp in temperamentsChecked) {
-        if (temperamentsChecked[temp]) {console.log(temp); return true}
+        if (temperamentsChecked[temp]) {return true}
     }
     return false;    
 }
@@ -205,7 +206,7 @@ const CreateDog = ({temperamentList, postDog, getTemperaments, newDogId, restart
     const joinTemperaments = (temperamentsChecked, customTemperament) => {
         const result = [];
         for (const temp in temperamentsChecked) {
-            if (temperamentsChecked[temp]) {console.log(temp); result.push(temp)}
+            if (temperamentsChecked[temp]) {result.push(temp)}
         }
         return result.concat(customTemperament).join(', ')
     }
