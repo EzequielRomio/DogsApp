@@ -53,10 +53,10 @@ function App() {
           />
         </div>
         <Route 
-        exact path='/dogs'
-        component={CardsContainer}
-      />
-      <div className={'home-page-auxiliar'} ></div>
+          exact path='/dogs'
+          component={CardsContainer}
+        />
+        <div className={'home-page-auxiliar'} ></div>
       </div>
       
       

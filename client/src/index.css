@@ -18,39 +18,10 @@ code {
     monospace;
 }
 
-.title {
-  font-family: 'Fredoka One', cursive;
-  text-shadow: 2px 1px cornsilk;
-  font-size: 60px;
-  margin: 5px 20px 10px 20px;
+html {
+  background-color: lightgreen;
 }
 
-.start-button {
-  margin: 20px 20px 10px 20px;
-}
-
-.transparent-bg {
-  position: relative;
-  top: 150px;
-  left: 0px;
-  box-shadow: inset 0 0 40px rgba(255, 255, 255, 0.5);
-  padding: 10px 40px 10px 40px;
-  display: inline-block;
-  border: groove 8px;
-  border-color: rgb(17, 173, 17);
-}
-
-div.transparent-bg:hover {
-  box-shadow: inset 0 0 220px rgba(170, 177, 160, 0.8);
-}
-
-.main-page {
-  background-image: url('./images/luni.jpeg');
-  background-repeat: no-repeat;
-  background-size: cover;
-  height: 1080px;
-  /* width: 1366px; */
-}
 
 button {
   border: none;
@@ -89,6 +60,40 @@ nav {
   justify-content: center;
 }
 
+.title {
+  font-family: 'Fredoka One', cursive;
+  text-shadow: 2px 1px cornsilk;
+  font-size: 60px;
+  margin: 5px 20px 10px 20px;
+}
+
+.start-button {
+  margin: 20px 20px 10px 20px;
+}
+
+.transparent-bg {
+  position: relative;
+  top: 150px;
+  left: 0px;
+  box-shadow: inset 0 0 40px rgba(255, 255, 255, 0.5);
+  padding: 10px 40px 10px 40px;
+  display: inline-block;
+  border: groove 8px;
+  border-color: rgb(17, 173, 17);
+}
+
+div.transparent-bg:hover {
+  box-shadow: inset 0 0 220px rgba(170, 177, 160, 0.8);
+}
+
+.main-page {
+  background-image: url('./images/luni.jpeg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 1080px;
+  /* width: 1366px; */
+}
+
 .nav-links {
   border: 1px solid black;
   padding: 5px;
@@ -110,9 +115,8 @@ nav {
   border: 2px dashed black;
   border-radius: 100%;
   position: absolute;
-  top: 25%;
+  top: 30%;
   left: 38%;
-    
 }
 
 .fill-screen {

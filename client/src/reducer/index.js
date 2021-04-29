@@ -54,7 +54,7 @@ const rootReducer = (state = initialState, actions) => {
     switch(actions.type) {
         case 'GET_DOGS':
             return {...state, dogs: actions.payload, breeds: actions.payload.map(dog => dog.name)};
-        
+
         case 'GET_TEMPERAMENTS':
             return {...state, temperaments: sortTemperaments(actions.payload)};
 

@@ -1,6 +1,8 @@
 const axios = require('axios');
 
+
 export const getDogs = () => {
+    
     return function (dispatch) {
         axios.get("http://localhost:3001/dogs", {responseType: 'json'})
             .then(res => {
@@ -9,7 +11,7 @@ export const getDogs = () => {
                 } else {alert('Server Error Ocurred'); return []};
             })
             .then(dogs => {return dispatch({ type: "GET_DOGS", payload: dogs })})
-            .catch((err) => {console.log(err, 'Connection with server fails')})
+            .catch(() => window.location.href = "/serverError")
     }
 }
 
@@ -32,7 +34,7 @@ export const postDog = (payload) => {
                 console.log(err.response.data);
                 const error = err.response.data 
                 if (error.status === 400) {return dispatch({type: 'HANDLE_400', payload: error.message})};
-                if (error.status === 409) {console.log('entre al 409 del actions');return dispatch({type: 'HANDLE_409', payload: error.message})};
+                if (error.status === 409) {return dispatch({type: 'HANDLE_409', payload: error.message})};
             })
     }
 }
@@ -43,7 +45,15 @@ export const getTemperaments = () => {
         axios.get("http://localhost:3001/temperament", {responseType: 'json'})
             .then(res => {
                 return res.data;
-            }).then(temperaments => {return dispatch({ type: "GET_TEMPERAMENTS", payload: temperaments })})
+            })
+            .then(temperaments => {
+                if (temperaments.length === 0) {
+                    window.location.href = "/serverError";
+                } else {
+                    return dispatch({ type: "GET_TEMPERAMENTS", payload: temperaments })
+                }
+            })
+            .catch(() => window.location.href = "/serverError")
     }
 }
 
