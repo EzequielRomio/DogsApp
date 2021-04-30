@@ -30,6 +30,10 @@ module.exports = (sequelize) => {
     image : {
       type: DataTypes.JSON,
       allowNull: true
+    },
+    created_by_user: {
+      type: DataTypes.BOOLEAN,
+      allowNull: true,
     }
   });
 };

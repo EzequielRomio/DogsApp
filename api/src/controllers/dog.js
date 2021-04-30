@@ -20,7 +20,8 @@ function setDogData(dog) {
         id: dog.id,
         image: dog.image,
         temperaments: temperament,
-        life_span: dog.life_span
+        life_span: dog.life_span,
+        created_by_user: dog.created_by_user || false
     };
 }
 
@@ -97,14 +98,12 @@ async function addDog(req, res, next) {
     try{
         if (req.body.name && req.body.height && req.body.weight && req.body.temperament) {
             const id = uuidv4();
-            const newDog = {...req.body, id}
+            const newDog = {...req.body, id, created_by_user: true}
             const postedDog = await Dog.create(newDog);
             const temperaments = newDog.temperament.replace(/,/g, '').split(' ');
             for (const temperament of temperaments) {
                 try {
-                    //const postedTemperament = await Temperament.create({name: temperament});
-                    const postedTemperament = await Temperament.findOrCreate({where: {name: temperament}})
-                    //console.log(postedTemperament)  
+                    const postedTemperament = await Temperament.findOrCreate({where: {name: temperament}})  
                     await postedDog.addTemperament(postedTemperament[0].dataValues.id);
                 } catch (err) {
                     console.log(err)

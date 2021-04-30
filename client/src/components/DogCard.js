@@ -78,6 +78,7 @@ const DogCard = ({dog, match}) => {
         axios.get(`http://localhost:3001/dogs/${match.params.id}`, {responseType: 'json'})
             .then(res => {
                 const dog = res.data
+                console.log(dog)
                 return {...dog,
                     weight: dog.weight.metric,
                     height: dog.height.metric,
