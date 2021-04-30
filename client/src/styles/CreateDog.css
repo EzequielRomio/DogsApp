@@ -62,12 +62,12 @@ input.send-button:hover {
 }
   
 .preview {
+    padding: 0px 70px 40px 70px;
     box-shadow: 3px 6px 10px 3px gray;
     border-radius: 20px; 
     background-color: lightsalmon;
     margin-left: 60px;
     margin-bottom: 200px;
-    padding-bottom: 40px;
   
 }
   

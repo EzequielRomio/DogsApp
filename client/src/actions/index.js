@@ -17,16 +17,21 @@ export const getDogs = () => {
 
 export const postDog = (payload) => {
     return function (dispatch) {
+        let dogImg = null; 
+        if (payload.image) {
+            dogImg = {url: payload.image}
+        }
         const body = {
             ...payload, 
             weight: {metric: payload.weight}, 
             height: {metric: payload.height}, 
-            temperament: payload.temperaments
+            temperament: payload.temperaments,
+            image: dogImg
         }
         axios.post("http://localhost:3001/dog", body, {responseType: 'json'})
             .then(res => {
                 if (res.status === 200) {
-                    const newDog = {...payload, id: res.data.id, created_by_user: true}
+                    const newDog = {...payload, id: res.data.id, created_by_user: true, image: dogImg}
                     return dispatch({type: 'ADD_DOG', payload: newDog})
                 }
             })

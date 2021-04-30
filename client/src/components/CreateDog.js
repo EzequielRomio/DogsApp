@@ -11,7 +11,7 @@ import '../styles/CreateDog.css';
 const displayValues = (inputs) => {
     const result = [];
     for (const k in inputs) {
-        if (k !== 'temperaments') {result.push(k)}
+        if (k !== 'temperaments' && k !== 'image') {result.push(k)}
     }
     return (
         <div>
@@ -224,6 +224,14 @@ const CreateDog = ({temperamentList, postDog, getTemperaments, newDogId, restart
         })
     }
 
+    // const handleImgChange = (e) => {
+    //     e.preventDefault()
+    //     setInputs({
+    //         ...inputs,
+    //         image: e.target.value
+    //     })
+    // }
+
     return (
         <div>
             <h2>Create New Dog</h2>
@@ -286,7 +294,16 @@ const CreateDog = ({temperamentList, postDog, getTemperaments, newDogId, restart
 
                 <div className={'preview'}>
                     <h4>Preview</h4>
-                    <Image imgToDisplay={defaultImg} imgWidth={'50%'} imgHeight={'50%'}></Image>
+                    <Image imgToDisplay={inputs.image || defaultImg} imgWidth={'256'} imgHeight={'256'}></Image>
+
+                    <input 
+                        type='text' 
+                        name='image' 
+                        className={'inputs'} 
+                        onChange={handleChange} 
+                        placeholder='Paste image address here!'
+                    ></input>
+
                     {displayValues(inputs)}
                 </div>
 
