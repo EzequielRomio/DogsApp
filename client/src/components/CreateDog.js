@@ -47,13 +47,6 @@ const displaySelectedTemperaments = (temperamentsChecked, removeTemperament) => 
     )
 }
 
-const checkTemps = (temperamentsChecked) => {
-    for (const temp in temperamentsChecked) {
-        if (temperamentsChecked[temp]) {return true}
-    }
-    return false;    
-}
-
 const createRadioInputs = (labelName, handleChange) => {
     const weights = ['1 - 10', '10 - 25', '25 - 40', '40 - 55', '55 - 70', '70 - 90', '90 - 120'];
     const heights = ['5 - 20', '20 - 40', '40 - 60', '60 - 100', '100 - 140', '140 - 180', '180 - 220']
@@ -86,19 +79,15 @@ const displayOptions = (filter, handleChange) => {
 }
 
 
-const validateBody = (inputs, temperamentsChecked, customTemperament) => {
-    const errors = {
-        name: null,
-        height: null,
-        weight: null,
-        temperaments: null,
-    }
+
+const validateBody = (inputs) => {
+    const errors = {}
+
     if (!inputs.name || inputs.name.length < 2) {errors.name = 'Name must have at least 2 letters!'}; 
     if (!inputs.height) {errors.height = 'Select a Height'};
     if (!inputs.weight) {errors.weight = 'Select a Weight'};
-    if (!inputs.temperaments && !customTemperament && !checkTemps(temperamentsChecked)) {
-        errors.temperaments  = 'Select or Create at least one temperament!'
-    };
+    if (!inputs.temperaments) {errors.temperaments  = 'Select or Create at least one temperament!'};
+    
     return errors
 }
 
@@ -109,9 +98,40 @@ const hasErrors = (errors) => {
     return false;
 }
 
+
+const joinTemperaments = (temperamentsChecked, customTemperament) => {
+    const result = [];
+    for (const temp in temperamentsChecked) {
+        if (temperamentsChecked[temp]) {result.push(temp)}
+    }
+    return result.concat(customTemperament).join(', ')
+}
+
+const parseNewTemperament = (newTemp) => {
+    newTemp = filterInvalidCharts(newTemp);
+    const temperaments = newTemp.split('-');
+    return (
+        temperaments
+        .filter(temperament => temperament.length > 0)
+        .map(temperament => temperament.charAt(0).toUpperCase() + temperament.slice(1))
+    )
+}
+
+const filterInvalidCharts = (txt) => {
+    let result = '';
+    for (let i=0; i < txt.length; i++) {
+        let ch = txt[i];
+        if (ch.toUpperCase() !== ch.toLowerCase() || ch === '-') {result += ch}
+    }
+    return result;
+}
+
+
 /*********** Component starts here *************/
 const CreateDog = ({temperamentList, postDog, getTemperaments, newDogId, restartNewDogId, postErrors, resetErrors}) => {
+
     temperamentList.length === 0 && getTemperaments(); 
+
     /****** Local states ******/
     const [inputs, setInputs] = useState({
         name: '',
@@ -122,27 +142,21 @@ const CreateDog = ({temperamentList, postDog, getTemperaments, newDogId, restart
     })
     const [temperamentsChecked, setTemperamentsChecked] = useState({})
     const [customTemperament, setCustomTemperament] = useState([])
-    const [joinedTemperaments, setJoinedTemperaments] = useState('')
     const [errors, setErrors] = useState({})
-    const [submited, setSubmited] = useState(false);
 
     const history = useHistory()
 
-    /****** useEffect *******/
-    useEffect(() => {
-        if (submited && hasErrors(errors)) {
-            setSubmited(false);
-            if (errors.temperaments) {alert('Select at least one temperament!')}
-        } else if (submited) {
-            postDog(inputs);
-        }
-        setSubmited(false);    
-    }, [inputs])
-
-
     useEffect(()=> {
-        setJoinedTemperaments(joinTemperaments(temperamentsChecked, customTemperament));
-    }, [temperamentsChecked, customTemperament])
+        setInputs({
+            ...inputs,
+            temperaments: joinTemperaments(temperamentsChecked, customTemperament)
+        });
+        setErrors(validateBody({
+            ...inputs, 
+            temperaments: joinTemperaments(temperamentsChecked, customTemperament)
+        }));
+    
+        }, [temperamentsChecked, customTemperament])
 
     
     useEffect(() => {
@@ -162,28 +176,36 @@ const CreateDog = ({temperamentList, postDog, getTemperaments, newDogId, restart
     })
 
 
-    /******* Events Handlers ********/
+    /********************* Events Handlers ********************/
     const handleChange = (e) => {
-        // VALIDAR FORM / ERRORES
         setInputs({
             ...inputs,
             [e.target.name]: e.target.value
         });
+        setErrors(validateBody({
+            ...inputs,
+            [e.target.name]: e.target.value 
+        }))
     }
+
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+
+        if (!hasErrors(errors)) {
+            postDog(inputs);
+        } else {
+            Object.keys(errors).forEach(error => {
+                const msg = errors[error]
+                alert(msg)
+            })
+        }
+    }
+
 
     const handleNewTemperament = (e) => {
         e.preventDefault();
         setCustomTemperament(parseNewTemperament(e.target.value));
-    }
-
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        setSubmited(true);
-        setInputs({
-            ...inputs,
-            temperaments: joinedTemperaments //joinTemperaments(temperamentsChecked, customTemperament)
-        })
-        setErrors(validateBody(inputs, temperamentsChecked, customTemperament))
     }
 
     const removeTemperament = (e) => {
@@ -200,35 +222,6 @@ const CreateDog = ({temperamentList, postDog, getTemperaments, newDogId, restart
             ...temperamentsChecked,
             [e.target.value]: true
         })
-    }
-
-
-    /*********** Auxiliar methods **************/ 
-    const joinTemperaments = (temperamentsChecked, customTemperament) => {
-        const result = [];
-        for (const temp in temperamentsChecked) {
-            if (temperamentsChecked[temp]) {result.push(temp)}
-        }
-        return result.concat(customTemperament).join(', ')
-    }
-
-    const parseNewTemperament = (newTemp) => {
-        newTemp = filterInvalidCharts(newTemp);
-        const temperaments = newTemp.split('-');
-        return (
-            temperaments
-            .filter(temperament => temperament.length > 0)
-            .map(temperament => temperament.charAt(0).toUpperCase() + temperament.slice(1))
-        )
-    }
-
-    const filterInvalidCharts = (txt) => {
-        let result = '';
-        for (let i=0; i < txt.length; i++) {
-            let ch = txt[i];
-            if (ch.toUpperCase() !== ch.toLowerCase() || ch === '-') {result += ch}
-        }
-        return result;
     }
 
     return (
