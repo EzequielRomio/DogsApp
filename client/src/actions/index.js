@@ -26,7 +26,7 @@ export const postDog = (payload) => {
         axios.post("http://localhost:3001/dog", body, {responseType: 'json'})
             .then(res => {
                 if (res.status === 200) {
-                    const newDog = {...payload, id: res.data.id}
+                    const newDog = {...payload, id: res.data.id, created_by_user: true}
                     return dispatch({type: 'ADD_DOG', payload: newDog})
                 }
             })

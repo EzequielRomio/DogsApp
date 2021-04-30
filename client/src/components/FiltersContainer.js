@@ -6,7 +6,7 @@ import '../styles/FiltersContainer.css';
 export const FiltersContainer = () => {
     return (
         <div className={'filter-container'}>
-            <Filters filterLabel={"Breed"} />
+            <Filters filterLabel={"Breeds"} />
             <Filters filterLabel={"Temperament"} />
         </div>
     )

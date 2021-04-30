@@ -76,7 +76,6 @@ const rootReducer = (state = initialState, actions) => {
     switch(actions.type) {
         case 'GET_DOGS':
             const filteredDogs = filterDuplicates(actions.payload);
-            console.log(filteredDogs)
             return {...state, dogs: filteredDogs, breeds: filteredDogs.map(dog => dog.name)};
 
         case 'GET_TEMPERAMENTS':
@@ -106,9 +105,11 @@ const rootReducer = (state = initialState, actions) => {
         case 'FILTER_BREEDS':
             if (actions.payload === '-') {
                 return {...state, filtered: state.dogs};    
+            } else if (actions.payload === 'Recognized') {
+                return {...state, filtered: state.dogs.filter(dog => !dog.created_by_user)}
             } else {
-                return {...state, filtered: state.dogs.filter(dog => dog.name === actions.payload)}
-            };
+                return {...state, filtered: state.dogs.filter(dog => dog.created_by_user)}
+            }
         
         case 'FILTER_TEMPERAMENTS':
             if (actions.payload === '-') {

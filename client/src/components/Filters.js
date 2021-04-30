@@ -5,7 +5,7 @@ import {filterBreeds, filterTemperaments, getTemperaments} from '../actions/inde
 import '../styles/Filters.css';
 
 
-const Filters = ({filterLabel, temperaments, breeds, filterBreeds, filterTemperaments, getTemperaments}) => {
+const Filters = ({filterLabel, temperaments, filterBreeds, filterTemperaments, getTemperaments}) => {
     
     filterLabel === 'Temperament' && temperaments.length === 0 && getTemperaments()
 
@@ -19,7 +19,7 @@ const Filters = ({filterLabel, temperaments, breeds, filterBreeds, filterTempera
 
     const handleClick = (e) => {
         e.preventDefault();
-        if (filterLabel === 'Breed') {filterBreeds(e.target.value)};
+        if (filterLabel === 'Breeds') {filterBreeds(e.target.value)};
         if (filterLabel === 'Temperament') {filterTemperaments(e.target.value)};
         
     }
@@ -37,7 +37,7 @@ const Filters = ({filterLabel, temperaments, breeds, filterBreeds, filterTempera
             <h5> <label>Filter by {filterLabel}</label> </h5>
             <select onChange={(e) => handleClick(e)}>
                 <option name={'initial'} key={'initial'}>-</option>
-                {(breeds && (filterLabel === 'Breed' && displayOptions(breeds))) || (temperamentsNames && displayOptions(temperamentsNames))}
+                {(filterLabel === 'Breeds' && displayOptions(['Created by our Users', 'Recognized'])) || (temperamentsNames && displayOptions(temperamentsNames))}
             </select>
         </div>
     )
@@ -46,13 +46,12 @@ const Filters = ({filterLabel, temperaments, breeds, filterBreeds, filterTempera
 function mapStateToProps(state) {
     return {
         temperaments: state.temperaments,
-        breeds: state.breeds
     }
 }
 
 function mapDispatchToProps(dispatch) {
     return {
-        filterBreeds: breedName => dispatch(filterBreeds(breedName)),
+        filterBreeds: breedType => dispatch(filterBreeds(breedType)),
         filterTemperaments: tempName => dispatch(filterTemperaments(tempName)),
         getTemperaments: () => dispatch(getTemperaments())
     };
