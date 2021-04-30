@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
 
@@ -31,7 +31,7 @@ const loading = (loading_gif) => {
 } 
 
 const getPaginate = (dogsToDisplay, handlePaginate) => {
-    let totalPages = Math.floor(dogsToDisplay.length / 8) // corregir el resto %
+    let totalPages = Math.floor(dogsToDisplay.length / 8)
     if (dogsToDisplay.length % 8 > 0) totalPages++;
     
     const paginateButtons = []; 
@@ -60,6 +60,10 @@ const CardsContainer = ({dogs, filtered, getDogs, match}) => {
 
     const [index, setIndex] = useState(0);
 
+    useEffect(() => {
+        if (dogsToDisplay.length > 0 && dogsToDisplay.length < 8) {setIndex(0)}
+    }, [dogsToDisplay.length])
+
     const handlePaginate = (e) => {
         e.preventDefault();
         const targetIndex = (e.target.value - 1) * 8
@@ -67,7 +71,11 @@ const CardsContainer = ({dogs, filtered, getDogs, match}) => {
         window.scrollTo(0, 0)
     }
 
-    //style={{display: "flex", alignContent: "space-between", flexDirection: "column"}} estaba en el main div
+    // let indexAux = null;
+
+    // filtered.length > 0 && filtered.length < 8 ? indexAux = 0 : indexAux = index;
+
+    console.log(index, 'soy index', dogsToDisplay, 'dogs to display')
     return (
         <div className={'cards-container'}>
             
