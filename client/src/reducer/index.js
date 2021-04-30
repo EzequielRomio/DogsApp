@@ -7,6 +7,8 @@ const initialState = {
     errors: {400: false, 409: false}
 }
 
+
+/****************** FUNCTIONS *******************/
 const sortTemperaments = (temperaments) => {
     const mapped = temperaments.map((temp, ix) => {
         let value = temp.name.toLowerCase();
@@ -16,7 +18,6 @@ const sortTemperaments = (temperaments) => {
     mapped.sort((a, b) => (a.value).localeCompare(b.value));
     return mapped.map((element) => {return temperaments[element.ix]})
 }
-
 
 const sortWeights = (array, orderAsc) => {
     const mapped = array.map((element, ix) => {
@@ -40,20 +41,43 @@ const sortBreeds = (array, orderAsc) => {
 }
 
 const searchTemperament = (dog, temperament) => {
-    if (typeof dog.temperaments !== 'string' && dog.temperaments) {
+    const isString = typeof dog.temperaments === 'string';
+
+    if (dog.temperaments && !isString) { //temperaments format is Array
         for (const temps of dog.temperaments) {
             if (temps.name.toLowerCase().includes(temperament.toLowerCase())) {return dog};
         }
-    } else { 
+
+    } else if (isString){ //temperaments is string and is not undefined
+        if (dog.temperaments.toLowerCase().includes(temperament.toLowerCase())) {return dog}; 
+    
+    } else { //if temperaments is undefined returns false
         return false;
-    };
+    }
+
 }
 
+const filterDuplicates = (dogs) => {
+    const filtered = {};
+    const result = [];
+    for (const dog of dogs) {
+        filtered[dog.name] = dog
+        //console.log(filtered)
+    }
+    for (const dog in filtered) {
+        result.push(filtered[dog])
+        //console.log(result)
+    }
+    return result;
+}
 
+/****************** REDUCER *******************/
 const rootReducer = (state = initialState, actions) => {
     switch(actions.type) {
         case 'GET_DOGS':
-            return {...state, dogs: actions.payload, breeds: actions.payload.map(dog => dog.name)};
+            const filteredDogs = filterDuplicates(actions.payload);
+            console.log(filteredDogs)
+            return {...state, dogs: filteredDogs, breeds: filteredDogs.map(dog => dog.name)};
 
         case 'GET_TEMPERAMENTS':
             return {...state, temperaments: sortTemperaments(actions.payload)};

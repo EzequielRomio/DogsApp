@@ -5,6 +5,10 @@ import {Image} from './Image.js';
 import '../styles/ServerError.css';
 
 export const ServerError = () => {
+    console.log(
+        'If you are reading this message it´s cause server is not working, or server is not sending data to display'
+    )
+
     return (
         <div className={'server-error-container'}>
             <Title isMain={'title'}></Title>
