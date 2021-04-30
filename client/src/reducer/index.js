@@ -1,3 +1,14 @@
+import {
+    sortTemperaments, 
+    sortWeights, 
+    sortBreeds, 
+    searchTemperament, 
+    filterDuplicates, 
+    searchName, 
+    filterCreatedDogs
+} from './helpers.js'
+
+
 const initialState = {
     dogs: [],
     temperaments: [],
@@ -8,70 +19,6 @@ const initialState = {
 }
 
 
-/****************** FUNCTIONS *******************/
-const sortTemperaments = (temperaments) => {
-    const mapped = temperaments.map((temp, ix) => {
-        let value = temp.name.toLowerCase();
-        return {ix, value}
-    })
-
-    mapped.sort((a, b) => (a.value).localeCompare(b.value));
-    return mapped.map((element) => {return temperaments[element.ix]})
-}
-
-const sortWeights = (array, orderAsc) => {
-    const mapped = array.map((element, ix) => {
-        let weight = element['weight'].split(' ')
-        let value = parseInt(weight[0])
-        return {ix, value}
-    })
-
-    orderAsc ? mapped.sort((a, b) => a.value - b.value) : mapped.sort((a, b) => b.value - a.value);
-    return mapped.map((element) => {return array[element.ix]})
-}
-
-const sortBreeds = (array, orderAsc) => {
-    const mapped = array.map((element, ix) => {
-        let value = element['name'].toLowerCase();
-        return {ix, value}
-    })
-
-    orderAsc ? mapped.sort((a, b) => (a.value).localeCompare(b.value)) : mapped.sort((a, b) => (b.value).localeCompare(a.value));
-    return mapped.map((element) => {return array[element.ix]})
-}
-
-const searchTemperament = (dog, temperament) => {
-    const isString = typeof dog.temperaments === 'string';
-
-    if (dog.temperaments && !isString) { //temperaments format is Array
-        for (const temps of dog.temperaments) {
-            if (temps.name.toLowerCase().includes(temperament.toLowerCase())) {return dog};
-        }
-
-    } else if (isString){ //temperaments is string and is not undefined
-        if (dog.temperaments.toLowerCase().includes(temperament.toLowerCase())) {return dog}; 
-    
-    } else { //if temperaments is undefined returns false
-        return false;
-    }
-
-}
-
-const filterDuplicates = (dogs) => {
-    const filtered = {};
-    const result = [];
-    for (const dog of dogs) {
-        filtered[dog.name] = dog
-        //console.log(filtered)
-    }
-    for (const dog in filtered) {
-        result.push(filtered[dog])
-        //console.log(result)
-    }
-    return result;
-}
-
-/****************** REDUCER *******************/
 const rootReducer = (state = initialState, actions) => {
     switch(actions.type) {
         case 'GET_DOGS':
@@ -108,7 +55,7 @@ const rootReducer = (state = initialState, actions) => {
             } else if (actions.payload === 'Recognized') {
                 return {...state, filtered: state.dogs.filter(dog => !dog.created_by_user)}
             } else {
-                return {...state, filtered: state.dogs.filter(dog => dog.created_by_user)}
+                return {...state, filtered: filterCreatedDogs(state.dogs)}
             }
         
         case 'FILTER_TEMPERAMENTS':
@@ -119,7 +66,7 @@ const rootReducer = (state = initialState, actions) => {
             };
 
         case 'SEARCH_NAME':
-            return {...state, filtered: state.dogs.filter(dog => dog.name.toLowerCase().includes(actions.payload.toLowerCase()))}    
+            return {...state, filtered: searchName(state.dogs, actions.payload)}    
 
         default:
             return state;

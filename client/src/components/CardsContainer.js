@@ -30,6 +30,14 @@ const loading = (loading_gif) => {
     )
 } 
 
+const displayNotMatches = () => {
+    return (
+        <div>
+            <h2>No matches... &#128529;</h2>
+        </div>
+    )
+}
+
 const getPaginate = (dogsToDisplay, handlePaginate) => {
     let totalPages = Math.floor(dogsToDisplay.length / 8)
     if (dogsToDisplay.length % 8 > 0) totalPages++;
@@ -71,16 +79,11 @@ const CardsContainer = ({dogs, filtered, getDogs, match}) => {
         window.scrollTo(0, 0)
     }
 
-    // let indexAux = null;
-
-    // filtered.length > 0 && filtered.length < 8 ? indexAux = 0 : indexAux = index;
-
-    console.log(index, 'soy index', dogsToDisplay, 'dogs to display')
     return (
         <div className={'cards-container'}>
-            
+            {(dogsToDisplay[0] === 'NOT_MATCH' && displayNotMatches()) ||
 
-            {(dogsToDisplay.length > 0 && [...dogsToDisplay].splice(index, 8).map(dog => {
+            (dogsToDisplay.length > 0 && [...dogsToDisplay].splice(index, 8).map(dog => {
                 return (
                     <div key={dog.id} onClick={() => {window.scrollTo(0 ,0)}}>
                         <Link to={`/dogs/details/${dog.id}`} >
