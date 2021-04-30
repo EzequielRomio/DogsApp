@@ -6,6 +6,8 @@ import {Image} from './Image.js';
 import {Title} from './Title.js';
 import startButton from '../images/start-button.png';
 import {getDogs, getTemperaments} from '../actions/index.js';
+import '../styles/MainPageContainer.css';
+
 
 const MainPageContainer = ({getDogs, getTemperaments}) => {
 

@@ -1,6 +1,7 @@
 import React from 'react';
 
 import Filters from './Filters.js';
+import '../styles/FiltersContainer.css';
 
 export const FiltersContainer = () => {
     return (

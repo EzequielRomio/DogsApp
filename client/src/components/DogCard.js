@@ -5,6 +5,7 @@ import {Image} from './Image';
 import dog_not_found from '../images/dog_not_found.jpg'
 import defaultImg from '../images/default.png'
 import loading_gif from '../images/loading_gif.gif'
+import '../styles/DogCard.css';
 
 const loading = (loading_gif) => {
     return (

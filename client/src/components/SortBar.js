@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import {connect} from 'react-redux';
 
 import {sortByBreeds, sortByWeights} from '../actions/index.js'
+import '../styles/SortBar.css';
 
 const SortBar = ({sortBreeds, sortWeights}) => {
     const [breedSwitch, setBreedSwitch] = useState(true);

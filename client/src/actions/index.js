@@ -73,10 +73,6 @@ export const sortByBreeds = (payload) => {
     return {type: 'SORT_BREEDS', payload}
 }
 
-export const setPostNotOk = () => {
-    return {type: 'POST_NOT_OK'}
-}
-
 export const restartNewDogId = () => {
     return {type: 'RESTART_NEW_DOG_ID'}
 }

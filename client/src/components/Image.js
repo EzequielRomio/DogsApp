@@ -1,5 +1,7 @@
 import React from 'react';
 
+import '../styles/Image.css';
+
 export const Image = ({imgToDisplay, altDescription, imgWidth, imgHeight, className}) => {
     return (
         <div>

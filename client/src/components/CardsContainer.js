@@ -7,6 +7,7 @@ import {Image} from './Image.js';
 import defaultImg from '../images/default.png'
 import loading_gif from '../images/loading_gif.gif'
 import {getDogs } from '../actions/index.js';
+import '../styles/CardsContainer.css'
 
 const setTemperaments = (temps) => {
     if (typeof temps === 'string') {

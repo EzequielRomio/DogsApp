@@ -3,8 +3,9 @@ import {connect} from 'react-redux';
 import {useHistory} from 'react-router-dom';
 
 import {postDog, getTemperaments, restartNewDogId, resetErrors} from '../actions/index.js';
-import {Image} from './Image.js'
-import defaultImg from '../images/default.png'
+import {Image} from './Image.js';
+import defaultImg from '../images/default.png';
+import '../styles/CreateDog.css';
 
 
 const displayValues = (inputs) => {

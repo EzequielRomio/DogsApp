@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import {connect} from 'react-redux';
 
 import {searchName} from '../actions/index.js';
+import '../styles/SearchBar.css';
 
 const SearchBar = ({searchName}) => {
     const [input, setInput] = useState('');

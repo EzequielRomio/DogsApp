@@ -2,6 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 
 import {filterBreeds, filterTemperaments, getTemperaments} from '../actions/index.js';
+import '../styles/Filters.css';
 
 
 const Filters = ({filterLabel, temperaments, breeds, filterBreeds, filterTemperaments, getTemperaments}) => {
