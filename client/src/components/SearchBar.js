@@ -1,4 +1,4 @@
-import React, {useCallback} from 'react';
+import React from 'react';
 import {connect} from 'react-redux';
 
 import {searchName} from '../actions/index.js';
@@ -8,12 +8,8 @@ const SearchBar = ({searchName}) => {
 
     const onChange = (e) => {
         e.preventDefault();
-        search(e)
-    }
-
-    const search = useCallback(e => {
         searchName(e.target.value)
-    }, [searchName])
+    }
 
     return (
         <div >

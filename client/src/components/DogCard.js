@@ -64,7 +64,7 @@ const displayDog = (dog, fullData) => {
 const dogNotFound = () => {
     return (
         <div>
-            <h1>Dog not found!</h1>
+            <h2>Dog not found!</h2>
             <Image imgToDisplay={dog_not_found} imgWidth="651" imgHeight="406"/>
         </div>
     )

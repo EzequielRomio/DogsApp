@@ -37,7 +37,7 @@ const Filters = ({filterLabel, temperaments, filterBreeds, filterTemperaments, g
             <h5> <label>Filter by {filterLabel}</label> </h5>
             <select onChange={(e) => handleClick(e)}>
                 <option name={'initial'} key={'initial'}>-</option>
-                {(filterLabel === 'Breeds' && displayOptions(['Created by our Users', 'Recognized'])) || (temperamentsNames && displayOptions(temperamentsNames))}
+                {(filterLabel === 'Breeds' && displayOptions(['Created by Users', 'Recognized'])) || (temperamentsNames && displayOptions(temperamentsNames))}
             </select>
         </div>
     )

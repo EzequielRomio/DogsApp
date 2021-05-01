@@ -97,7 +97,7 @@ const CardsContainer = ({dogs, filtered, getDogs, match}) => {
                 )
             })) || loading(loading_gif)}
             
-            {getPaginate(dogsToDisplay, handlePaginate)}
+            {dogsToDisplay[0] !== 'NOT_MATCH' && getPaginate(dogsToDisplay, handlePaginate)}
         </div>
     )
 }

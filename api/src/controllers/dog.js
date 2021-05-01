@@ -71,7 +71,7 @@ function getDog(req, res, next) {
             } else {
                 next({status: 404, message: "Id not found"});
             }
-        }).catch(err => next(err))
+        }).catch(() => next({status: 400, message: "Bad id format"}))
     } else {
         idNum = parseInt(idNum);
         if (idNum < 1) {
