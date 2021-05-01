@@ -43,7 +43,7 @@ const getPaginate = (dogsToDisplay, handlePaginate) => {
     if (dogsToDisplay.length % 8 > 0) totalPages++;
     
     const paginateButtons = []; 
-    for (let i=1; i < totalPages; i++) {
+    for (let i=1; i <= totalPages; i++) {
         paginateButtons.push(i) 
     }
     return (
