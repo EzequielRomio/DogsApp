@@ -4,7 +4,7 @@ const axios = require('axios');
 export const getDogs = () => {
     
     return function (dispatch) {
-        axios.get("http://localhost:3001/dogs", {responseType: 'json'})
+        axios.get("/dogs", {responseType: 'json'})
             .then(res => {
                 if (res.status === 200) {
                     return res.data.map(dog => {return {...dog, weight: dog.weight.metric, height: dog.height.metric}})
@@ -28,7 +28,7 @@ export const postDog = (payload) => {
             temperament: payload.temperaments,
             image: dogImg
         }
-        axios.post("http://localhost:3001/dog", body, {responseType: 'json'})
+        axios.post("/dog", body, {responseType: 'json'})
             .then(res => {
                 if (res.status === 200) {
                     const newDog = {...payload, id: res.data.id, created_by_user: true, image: dogImg}
@@ -47,7 +47,7 @@ export const postDog = (payload) => {
 
 export const getTemperaments = () => { 
     return function (dispatch) {
-        axios.get("http://localhost:3001/temperament", {responseType: 'json'})
+        axios.get("/temperament", {responseType: 'json'})
             .then(res => {
                 return res.data;
             })

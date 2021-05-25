@@ -75,7 +75,7 @@ const DogCard = ({dog, match}) => {
     const [error, setError] = useState(false);
 
     if (!dog && Object.keys(dogFound).length === 0 && !error) {
-        axios.get(`http://localhost:3001/dogs/${match.params.id}`, {responseType: 'json'})
+        axios.get(`/dogs/${match.params.id}`, {responseType: 'json'})
             .then(res => {
                 const dog = res.data
                 return {...dog,
