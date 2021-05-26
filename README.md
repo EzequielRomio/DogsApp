@@ -22,5 +22,7 @@
 
 
 
-__Credits to__ <a href="https://api.thedogapi.com" target="_blank">thedogapi</a>
+__Credits to__ 
+- <a href="https://api.thedogapi.com" target="_blank">thedogapi.com</a>
+- <a href="https://www.soyhenry.com/" target="_blank">soyHenry.com</a>
 
